@@ -12,11 +12,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = -20f;
     [SerializeField] private float groundedPull = -2f;
 
+
+    [Header("Knockback")]
+    [SerializeField] private float knockbackDecay = 5f;
+
     private CharacterController controller;
     private InputSystem_Actions input;
     private Transform cameraTransform;
     private float velocityY;
-
+    private Vector3 knockbackVelocity;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -38,10 +42,12 @@ public class PlayerController : MonoBehaviour
         RotateTowards(moveDirection);
         ApplyGravity();
 
-        Vector3 velocity = moveDirection * moveSpeed;
+        Vector3 velocity = moveDirection * moveSpeed + knockbackVelocity;
         velocity.y = velocityY;
 
         controller.Move(velocity * Time.deltaTime);
+
+        knockbackVelocity = Vector3.Lerp(knockbackVelocity, Vector3.zero, knockbackDecay * Time.deltaTime);
     }
 
     /// <summary>입력을 카메라 기준 수평 방향 벡터로 변환합니다.</summary>
@@ -90,5 +96,11 @@ public class PlayerController : MonoBehaviour
             velocityY = groundedPull;
         else
             velocityY += gravity * Time.deltaTime;
+    }
+
+    public void ApplyKnockback(Vector3 direction, float force)
+    {
+        knockbackVelocity = direction * force;
+        Debug.Log($"넉백 적용 {direction} × {force}");
     }
 }

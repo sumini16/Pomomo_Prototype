@@ -1,3 +1,4 @@
+using System.Xml;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
@@ -18,6 +19,17 @@ public class EnemyAI : MonoBehaviour
     [Tooltip("이 거리를 벗어나면 추적을 포기합니다. detectRange보다 커야 합니다.")]
     [SerializeField] private float loseRange = 9f;
 
+
+    [Header("Combat")]
+    [SerializeField] private int attackDamage = 10;
+    [SerializeField] private float attackCooldown = 1.2f;
+    [SerializeField] private float knockbackForce = 6f;
+
+    [Tooltip("공격 상태에서 이 거리를 벗어나면 다시 추적합니다. attackRange보다 커야 합니다.")]
+    [SerializeField] private float attackExitRange = 2.2f;
+
+    public float AttackExitRange => attackExitRange;
+
     public Transform Target { get; private set; }
     public Health Health { get; private set; }
 
@@ -34,6 +46,17 @@ public class EnemyAI : MonoBehaviour
     public PatrolState Patrol { get; private set; }
     public ChaseState Chase { get; private set; }
 
+    public int AttackDamage => attackDamage;
+    public float AttackCooldown => attackCooldown;
+    public float KnockbackForce => knockbackForce;
+
+    public AttackState Attack { get; private set; }
+    public DeadState Dead { get; private set; }
+
+    private void OnEnable() => Health.OnDied += HandleDied;
+    private void OnDisable() => Health.OnDied -= HandleDied;
+
+    private void HandleDied() => Machine.ChangeState(Dead);
     private void Awake()
     {
         Health = GetComponent<Health>();
@@ -47,6 +70,9 @@ public class EnemyAI : MonoBehaviour
         Machine = new StateMachine();
         Patrol = new PatrolState(this);
         Chase = new ChaseState(this);
+
+        Attack = new AttackState(this);
+        Dead = new DeadState(this);
     }
 
     private void Start()
@@ -94,5 +120,19 @@ public class EnemyAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.gray;
         Gizmos.DrawWireSphere(transform.position, loseRange);
+    }
+
+    /// <summary>이동 없이 대상 쪽으로 방향만 맞춥니다.</summary>
+    public void FaceTarget()
+    {
+        if (Target == null) return;
+
+        Vector3 delta = Target.position - transform.position;
+        delta.y = 0f;
+
+        if (delta.sqrMagnitude < 0.001f) return;
+
+        Quaternion look = Quaternion.LookRotation(delta.normalized, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, look, rotationSpeed * Time.deltaTime);
     }
 }
