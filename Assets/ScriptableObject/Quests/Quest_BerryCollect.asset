@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744f183a7f281b342a6cba0ebea9e095, type: 3}
   m_Name: Quest_BerryCollect
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
-  title: 
-  acceptText: 
-  progressText: 
-  completeText: 
-  targetItem: {fileID: 0}
+  title: "\uC815\uC6D0\uC5D0 \uB5A8\uC5B4\uC9C4 \uB538\uAE30 \uC90D\uAE30"
+  acceptText: "\uC544, \uB9C8\uCE68 \uC798 \uC654\uB124.\n\uB0B4 \uD5C8\uB9AC\uAC00
+    \uC601 \uB9D0\uC744 \uC548 \uB4E4\uC5B4\uC11C,\n\uB538\uAE30 3\uAC1C\uB9CC \uC8FC\uC6CC\uC904
+    \uC218 \uC788\uC744\uAE4C?"
+  progressText: "\uC544\uC9C1 \uC880 \uBAA8\uC790\uB77C\uB124. \uCC9C\uCC9C\uD788
+    \uD574\uB3C4 \uAD1C\uCC2E\uC544"
+  completeText: "\uC624, \uBC8C\uC368 \uB2E4 \uBAA8\uC558\uAD6C\uB098. \uACE0\uB9C8\uC6CC.\n\uC624\uB298
+    \uC800\uB141\uC5D4 \uC774\uAC78\uB85C \uC7BC\uC744 \uB9CC\uB4E4\uC5B4\uC57C\uACA0\uC5B4."
+  targetItem: {fileID: 11400000, guid: e3f6ff6b7f772464fbcfac0c1af414c6, type: 2}
   requiredCount: 3

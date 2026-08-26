@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7784809fe80be50409b15130ca9802d6, type: 3}
   m_Name: Item_Berry
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  displayName: "\uBCA0\uB9AC"
+  displayName: "\uB538\uAE30"
   icon: {fileID: 0}
   description: "\uC0B0\uB538\uAE30"
