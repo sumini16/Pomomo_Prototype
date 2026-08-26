@@ -7,6 +7,7 @@ public class PlayerInventory : MonoBehaviour
     private readonly Dictionary<ItemData, int> items = new();
 
     public event Action OnInventoryChanged;
+    public IReadOnlyDictionary<ItemData, int> Items => items;
 
     public void Add(ItemData item, int amount = 1)
     {
@@ -14,6 +15,7 @@ public class PlayerInventory : MonoBehaviour
             items[item] += amount;
         else
             items[item] = amount;
+
         OnInventoryChanged?.Invoke();
     }
 
@@ -21,12 +23,12 @@ public class PlayerInventory : MonoBehaviour
     {
         if (GetCount(item) < amount) return false;
 
-        items[item] -= amount;        
+        items[item] -= amount;
 
         if (items[item] <= 0)
             items.Remove(item);
 
-        OnInventoryChanged?.Invoke();  
+        OnInventoryChanged?.Invoke();
         return true;
     }
 
