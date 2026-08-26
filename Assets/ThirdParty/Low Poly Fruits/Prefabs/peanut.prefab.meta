@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8c8c7d8f829a2d24ebe78eddb5eaff57
+timeCreated: 1502953202
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 98135
+  packageName: Low Poly Fruit Pickups
+  packageVersion: 1.0
+  assetPath: Assets/Low Poly Fruits/Prefabs/peanut.prefab
+  uploadId: 196237

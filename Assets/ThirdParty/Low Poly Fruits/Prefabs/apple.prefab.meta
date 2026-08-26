@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 426b44a7575f71e479fab4f4e8431989
+timeCreated: 1502953187
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 98135
+  packageName: Low Poly Fruit Pickups
+  packageVersion: 1.0
+  assetPath: Assets/Low Poly Fruits/Prefabs/apple.prefab
+  uploadId: 196237

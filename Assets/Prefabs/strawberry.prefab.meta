@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 63e523ab5d9ce7348b431ae1d689a54d
+timeCreated: 1502953204
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 98135
+  packageName: Low Poly Fruit Pickups
+  packageVersion: 1.0
+  assetPath: Assets/Low Poly Fruits/Prefabs/strawberry.prefab
+  uploadId: 196237

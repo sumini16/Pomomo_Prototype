@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8f38e57a49b1c844081ad6bb3c553f13
+timeCreated: 1502953195
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 98135
+  packageName: Low Poly Fruit Pickups
+  packageVersion: 1.0
+  assetPath: Assets/Low Poly Fruits/Prefabs/cherries.prefab
+  uploadId: 196237
