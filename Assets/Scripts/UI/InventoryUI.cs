@@ -9,7 +9,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private ItemSlotUI slotPrefab;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private TextMeshProUGUI emptyText;
-
+    [SerializeField] private ItemTooltip tooltip;
     private bool isOpen;
 
     private void Awake() => panelRoot.SetActive(false);
@@ -30,12 +30,17 @@ public class InventoryUI : MonoBehaviour
         isOpen = !isOpen;
         panelRoot.SetActive(isOpen);
 
-        if (isOpen) Refresh();
+        if (isOpen)
+            Refresh();
+        else
+            tooltip.Hide();
     }
 
     private void RefreshIfOpen()
     {
         if (isOpen) Refresh();
+
+
     }
 
     private void Refresh()
@@ -47,7 +52,7 @@ public class InventoryUI : MonoBehaviour
         foreach (var pair in inventory.Items)
         {
             ItemSlotUI slot = Instantiate(slotPrefab, slotContainer);
-            slot.Bind(pair.Key, pair.Value);
+            slot.Bind(pair.Key, pair.Value, tooltip);
         }
     }
 }

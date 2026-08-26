@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.EventSystems;
 public class PlayerCombat : MonoBehaviour
 {
     [Header("Attack")]
@@ -24,6 +24,10 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
+
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+
         if (!input.Player.Attack.WasPressedThisFrame()) return;
         if (Time.time - lastAttackTime < attackCooldown) return;
 
