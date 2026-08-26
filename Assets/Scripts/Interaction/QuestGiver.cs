@@ -4,7 +4,7 @@ public class QuestGiver : Interactable
 {
     [SerializeField] private QuestData quest;
     [SerializeField] private QuestState questState;
-
+    [SerializeField] private string speakerName = "마을 사람";
     private void Awake()
     {
         if (quest == null)
@@ -21,8 +21,18 @@ public class QuestGiver : Interactable
         switch (questState)
         {
             case QuestState.NotStarted:
-                questState = QuestState.InProgress;
-                Debug.Log($"[퀘스트 수락] {quest.acceptText}");
+                DialogueEvents.RequestChoice(
+                    speakerName,
+                    quest.acceptText,
+                    onAccept: () =>
+                    {
+                        questState = QuestState.InProgress;
+                        QuestEvents.Accepted(quest);
+                    },
+                    onDecline: () =>
+                    {
+                        DialogueEvents.Request(speakerName, quest.declineText);
+                    });
                 break;
 
             case QuestState.InProgress:
@@ -30,16 +40,18 @@ public class QuestGiver : Interactable
                 {
                     inventory.Remove(quest.targetItem, quest.requiredCount);
                     questState = QuestState.Completed;
-                    Debug.Log($"[퀘스트 완료] {quest.completeText}");
+                    QuestEvents.Completed(quest);
+                    DialogueEvents.Request(speakerName, quest.completeText);      // ← 완료
                 }
                 else
                 {
-                    Debug.Log($"[{quest.progressText}] ({count}/{quest.requiredCount})");
+                    DialogueEvents.Request(speakerName,
+                        $"{quest.progressText} ({count}/{quest.requiredCount})"); // ← 진행 중
                 }
                 break;
 
             case QuestState.Completed:
-                Debug.Log($"[완료] {quest.completeText}");
+                DialogueEvents.Request(speakerName, quest.completeText);          // ← 완료 후
                 break;
         }
     }

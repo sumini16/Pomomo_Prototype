@@ -20,5 +20,7 @@ MonoBehaviour:
     \uD574\uB3C4 \uAD1C\uCC2E\uC544"
   completeText: "\uC624, \uBC8C\uC368 \uB2E4 \uBAA8\uC558\uAD6C\uB098. \uACE0\uB9C8\uC6CC.\n\uC624\uB298
     \uC800\uB141\uC5D4 \uC774\uAC78\uB85C \uC7BC\uC744 \uB9CC\uB4E4\uC5B4\uC57C\uACA0\uC5B4."
+  declineText: "\uADF8\uB7F0\uAC00. \uC0DD\uAC01\uC774 \uBC14\uB00C\uBA74 \uC5B8\uC81C\uB4E0
+    \uB2E4\uC2DC \uC624\uAC8C."
   targetItem: {fileID: 11400000, guid: e3f6ff6b7f772464fbcfac0c1af414c6, type: 2}
   requiredCount: 3
