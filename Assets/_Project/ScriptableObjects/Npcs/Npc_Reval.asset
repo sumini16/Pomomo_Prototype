@@ -19,5 +19,5 @@ MonoBehaviour:
     \uC880 \uAE30\uB124."
   repeatLine: "\uB9C8\uC74C\uC758 \uC900\uBE44\uAC00 \uB418\uAC70\uB4E0 \uB2E4\uC2DC
     \uC624\uAC8C."
-  requiredQuest: {fileID: 11400000, guid: 7cfb9e2ce132614448968b628dd8beec, type: 2}
+  requiredQuest: {fileID: 11400000, guid: f14dfee51ec84aa4f80025f5ea011083, type: 2}
   lockedLine: ...

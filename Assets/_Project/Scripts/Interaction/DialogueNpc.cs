@@ -25,7 +25,7 @@ public class DialogueNpc : Interactable
         }
 
         if (npcData.requiredQuest != null &&
-            progress.Log.GetState(npcData.requiredQuest) != QuestState.Completed)
+    progress.Log.GetState(npcData.requiredQuest) == QuestState.NotStarted)
         {
             DialogueEvents.Request(npcData.displayName, npcData.lockedLine);
             return;

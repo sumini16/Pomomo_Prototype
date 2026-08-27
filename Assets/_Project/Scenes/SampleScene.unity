@@ -6029,7 +6029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c763387ad665144b889d5bbe4d4e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueNpc
-  displayName: 
+  displayName: "\uB974\uBC1C"
   npcData: {fileID: 11400000, guid: 9dfe76df6bcd0324bb71696666b4d425, type: 2}
 --- !u!136 &1134849062
 CapsuleCollider:
@@ -9114,9 +9114,10 @@ MonoBehaviour:
   displayName: "\uC9C0\uC740"
   quests:
   - {fileID: 11400000, guid: 7cfb9e2ce132614448968b628dd8beec, type: 2}
+  - {fileID: 11400000, guid: f14dfee51ec84aa4f80025f5ea011083, type: 2}
   speakerName: "\uB9C8\uC744 \uC0AC\uB78C2"
   npcData: {fileID: 0}
-  idleText: "\uC624\uB298\uC740 \uBCC4\uC77C \uC5C6\uB124."
+  idleText: "\uBAB8 \uC870\uC2EC\uD558\uAC8C \uC5EC\uAE34 \uC704\uD5D8\uD574 ..\n"
 --- !u!136 &1561269307
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9963,6 +9964,7 @@ GameObject:
   - component: {fileID: 1757021798}
   - component: {fileID: 1757021797}
   - component: {fileID: 1757021796}
+  - component: {fileID: 1757021800}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -10206,6 +10208,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa9b042c595eca48a69390572c79f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KillTracker
+--- !u!114 &1757021800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757021785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c713aee5df31e418754a9ecaadd487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wallet
+  startingGold: 0
 --- !u!1 &1767188024
 GameObject:
   m_ObjectHideFlags: 0

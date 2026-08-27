@@ -2,10 +2,7 @@
 
 /// <summary>
 /// 퀘스트를 주고받는 NPC.
-///
-/// 여러 퀘스트를 순서대로 줄 수 있습니다. 배열 위에서부터 검사해
-/// 아직 완료되지 않은 첫 번째 퀘스트를 진행하므로,
-/// 앞 퀘스트를 끝내야 다음 퀘스트가 열립니다.
+/// 배열 순서대로 아직 완료되지 않은 첫 퀘스트를 진행합니다.
 /// </summary>
 public class QuestGiver : Interactable
 {
@@ -14,11 +11,12 @@ public class QuestGiver : Interactable
 
     [SerializeField] private string speakerName = "마을 사람";
 
-    [Tooltip("이 NPC 자체가 대화형 목표의 대상이 될 경우 지정합니다. 없으면 비워둡니다.")]
+    [Tooltip("이 NPC 자체가 대화형 목표의 대상일 경우 지정합니다. 없으면 비워둡니다.")]
     [SerializeField] private NpcData npcData;
 
     [Tooltip("줄 퀘스트가 더 남아 있지 않을 때의 대사.")]
-    [TextArea][SerializeField] private string idleText = "오늘은 별일 없네.";
+    [TextArea]
+    [SerializeField] private string idleText = "오늘은 별일 없네.";
 
     public override void Interact(GameObject interactor)
     {
@@ -35,14 +33,12 @@ public class QuestGiver : Interactable
 
         QuestData quest = PickCurrentQuest(log);
 
-        // 줄 퀘스트가 남아 있지 않음
         if (quest == null)
         {
             DialogueEvents.Request(speakerName, idleText);
             return;
         }
 
-        // 선행 퀘스트가 아직 완료되지 않았다면 퀘스트를 열지 않습니다.
         if (!log.IsUnlocked(quest))
         {
             DialogueEvents.Request(speakerName, quest.lockedText);
@@ -72,6 +68,16 @@ public class QuestGiver : Interactable
                     quest.objective.OnQuestCompleted(ctx);
 
                     log.SetState(quest, QuestState.Completed);
+
+                    Debug.Log(
+                        $"[QuestReward] 퀘스트 완료: {quest.title} | " +
+                        $"설정 보상: {quest.rewardGold} | " +
+                        $"지급 전 골드: {progress.Wallet.Gold}");
+
+                    progress.Wallet.Add(quest.rewardGold);
+
+                    Debug.Log($"[QuestReward] 지급 후 골드: {progress.Wallet.Gold}");
+
                     QuestEvents.Completed(quest);
                     DialogueEvents.Request(speakerName, quest.completeText);
                 }
@@ -87,15 +93,20 @@ public class QuestGiver : Interactable
         }
     }
 
-    /// <summary>아직 완료되지 않은 첫 번째 퀘스트. 전부 끝냈으면 null.</summary>
+    /// <summary>
+    /// 아직 완료되지 않은 첫 번째 퀘스트를 반환합니다.
+    /// 전부 끝났다면 null을 반환합니다.
+    /// </summary>
     private QuestData PickCurrentQuest(QuestLog log)
     {
         if (quests == null) return null;
 
-        foreach (QuestData q in quests)
+        foreach (QuestData quest in quests)
         {
-            if (q == null) continue;
-            if (log.GetState(q) != QuestState.Completed) return q;
+            if (quest == null) continue;
+
+            if (log.GetState(quest) != QuestState.Completed)
+                return quest;
         }
 
         return null;

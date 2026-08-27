@@ -10,6 +10,10 @@ public class ItemData : ScriptableObject
     public Sprite icon;
     [TextArea] public string description;
 
+    [Header("상점")]
+    [Min(0)] public int buyPrice;
+    [Min(0)] public int sellPrice;
+
     private void OnValidate()
     {
         // 비워두면 에셋 파일명을 기본값으로 씁니다.

@@ -13,6 +13,7 @@
 [RequireComponent(typeof(KillTracker))]
 [RequireComponent(typeof(DialogueFlags))]
 [RequireComponent(typeof(QuestLog))]
+[RequireComponent(typeof(Wallet))]
 public class PlayerProgress : MonoBehaviour
 {
     private PlayerInventory inventory;
@@ -20,12 +21,14 @@ public class PlayerProgress : MonoBehaviour
     private DialogueFlags flags;
     private QuestLog log;
     private QuestContext context;
-
+    private Wallet wallet;
     public PlayerInventory Inventory { get { EnsureInitialized(); return inventory; } }
     public KillTracker Kills { get { EnsureInitialized(); return kills; } }
     public DialogueFlags Flags { get { EnsureInitialized(); return flags; } }
     public QuestLog Log { get { EnsureInitialized(); return log; } }
     public QuestContext Context { get { EnsureInitialized(); return context; } }
+
+    public Wallet Wallet { get { EnsureInitialized(); return wallet; } }
 
     private void Awake() => EnsureInitialized();
 
@@ -37,6 +40,7 @@ public class PlayerProgress : MonoBehaviour
         kills = GetComponent<KillTracker>();
         flags = GetComponent<DialogueFlags>();
         log = GetComponent<QuestLog>();
+        wallet = GetComponent<Wallet>();
 
         context = new QuestContext(inventory, kills, flags, log);
     }

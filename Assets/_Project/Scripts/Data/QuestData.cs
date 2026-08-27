@@ -19,4 +19,10 @@ public class QuestData : ScriptableObject
 
     [Tooltip("선행 퀘스트가 아직 완료되지 않았을 때의 대사.")]
     [TextArea] public string lockedText = "지금은 할 얘기가 없네.";
+
+
+    [Header("보상")]
+    [Tooltip("퀘스트 완료 보고 시 지급할 골드")]
+    [Min(0)]
+    public int rewardGold;
 }
