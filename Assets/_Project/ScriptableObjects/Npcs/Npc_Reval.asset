@@ -14,3 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcData
   id: Npc_Reval
   displayName: "\uB974\uBC1C"
+  firstLine: "\uC0AC\uB0E5\uAFBC\uC774 \uC790\uB124\uB97C \uCC3E\uC544\uC624\uB77C
+    \uD588\uB2E4\uACE0?\n               ...\uC549\uAC8C. \uD560 \uC598\uAE30\uAC00
+    \uC880 \uAE30\uB124."
+  repeatLine: "\uB9C8\uC74C\uC758 \uC900\uBE44\uAC00 \uB418\uAC70\uB4E0 \uB2E4\uC2DC
+    \uC624\uAC8C."
+  requiredQuest: {fileID: 11400000, guid: 7cfb9e2ce132614448968b628dd8beec, type: 2}
+  lockedLine: ...

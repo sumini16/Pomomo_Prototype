@@ -9,6 +9,20 @@ public class NpcData : ScriptableObject
 
     public string displayName;
 
+    [Header("Dialogue")]
+    [TextArea] public string firstLine;
+
+    [Tooltip("두 번째 이후 대화. 비워두면 첫 대사를 반복합니다.")]
+    [TextArea] public string repeatLine;
+
+
+    [Header("Dialogue condition")]
+    [Tooltip("완료되어야 첫 대사가 열리는 퀘스트")]
+    public QuestData requiredQuest;
+
+    [TextArea]
+    public string lockedLine = "아직은 할 얘기가 없네.";
+
     private void OnValidate()
     {
         if (string.IsNullOrWhiteSpace(id))
