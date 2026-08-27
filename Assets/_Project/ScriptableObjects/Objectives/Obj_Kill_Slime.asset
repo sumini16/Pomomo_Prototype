@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f837be4aaeec9e49b439f60d8aed334, type: 3}
+  m_Name: Obj_Kill_Slime
+  m_EditorClassIdentifier: Assembly-CSharp::KillObjective
+  target: {fileID: 11400000, guid: 1b4d685a7f4b4c849879d9ed18940ba9, type: 2}
+  required: 3

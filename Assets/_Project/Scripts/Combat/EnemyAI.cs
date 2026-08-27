@@ -1,9 +1,12 @@
-﻿using System.Xml;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Health))]
 public class EnemyAI : MonoBehaviour
 {
+    [Header("Identity")]
+    [Tooltip("퀘스트 처치 집계에 쓰이는 종류 식별자. 처치형 목표를 쓰려면 필요합니다.")]
+    [SerializeField] private EnemyData enemyData;
+
     [Header("Patrol")]
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private float waypointTolerance = 0.3f;
@@ -56,7 +59,14 @@ public class EnemyAI : MonoBehaviour
     private void OnEnable() => Health.OnDied += HandleDied;
     private void OnDisable() => Health.OnDied -= HandleDied;
 
-    private void HandleDied() => Machine.ChangeState(Dead);
+    private void HandleDied()
+    {
+        Machine.ChangeState(Dead);
+
+        // 누가 듣는지 모른 채 사실만 알립니다. KillTracker가 구독해 집계합니다.
+        // Health가 중복 사망을 막아주므로 여기서 두 번 발행되지 않습니다.
+        CombatEvents.EnemyKilled(enemyData);
+    }
     private void Awake()
     {
         Health = GetComponent<Health>();

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Quest_BerryCollect
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   title: "\uC815\uC6D0\uC5D0 \uB5A8\uC5B4\uC9C4 \uB538\uAE30 \uC90D\uAE30"
+  objective: {fileID: 11400000, guid: a57ec646213830040b7372e7c6e1f369, type: 2}
+  prerequisite: {fileID: 0}
   acceptText: "\uC544, \uB9C8\uCE68 \uC798 \uC654\uB124.\n\uB0B4 \uD5C8\uB9AC\uAC00
     \uC601 \uB9D0\uC744 \uC548 \uB4E4\uC5B4\uC11C,\n\uB538\uAE30 3\uAC1C\uB9CC \uC8FC\uC6CC\uC904
     \uC218 \uC788\uC744\uAE4C?"
@@ -22,5 +24,4 @@ MonoBehaviour:
     \uC800\uB141\uC5D4 \uC774\uAC78\uB85C \uC7BC\uC744 \uB9CC\uB4E4\uC5B4\uC57C\uACA0\uC5B4."
   declineText: "\uADF8\uB7F0\uAC00. \uC0DD\uAC01\uC774 \uBC14\uB00C\uBA74 \uC5B8\uC81C\uB4E0
     \uB2E4\uC2DC \uC624\uAC8C."
-  targetItem: {fileID: 11400000, guid: e3f6ff6b7f772464fbcfac0c1af414c6, type: 2}
-  requiredCount: 3
+  lockedText: 

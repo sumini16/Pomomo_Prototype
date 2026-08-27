@@ -418,36 +418,46 @@ DialogueEvents.RequestChoice(speakerName, quest.acceptText,
 
 ```
 Assets/
-├── _Project/          직접 작성·제작한 것
+├── _Project/              직접 작성·제작한 것
 │   ├── Scripts/
-│   │   ├── Core/         GameManager, GameState
-│   │   ├── Player/       PlayerController, PlayerInteractor
-│   │   ├── Interaction/  Interactable, ItemPickup, QuestGiver, QuestState
-│   │   ├── Data/         ItemData (ScriptableObject)
-│   │   ├── Companion/    동반자 AI
-│   │   ├── Combat/       Health, 적 AI 상태
-│   │   ├── UI/           프롬프트·체력바·대화창·퀘스트·인벤토리·툴팁·이름표
-│   │   └── Systems/      인벤토리, 오브젝트 풀
-│   ├── Prefabs/
+│   │   ├── Core/            GameManager, GameState, 상태머신 베이스, 이벤트 창구
+│   │   ├── Player/          PlayerController, PlayerInteractor, PlayerInventory, PlayerCombat
+│   │   ├── Interaction/     Interactable, ItemPickup, QuestGiver
+│   │   ├── Data/            ItemData, QuestData (ScriptableObject)
+│   │   ├── Companion/       CompanionAI
+│   │   ├── Combat/          Health, EnemyAI
+│   │   └── UI/              프롬프트·체력바·대화창·퀘스트·인벤토리·툴팁·이름표
+│   ├── Input/               InputSystem_Actions (.inputactions + 자동 생성 .cs)
 │   ├── ScriptableObjects/
-│   │   ├── Items/        Item_Berry 등
-│   │   └── Quests/       Quest_BerryCollect 등
-│   ├── Input/            InputSystem_Actions
+│   │   ├── Items/           Item_Berry 등
+│   │   └── Quests/          Quest_BerryCollect 등
+│   ├── Prefabs/
 │   ├── Scenes/
+│   ├── Sprites/
 │   └── Materials/
-└── ThirdParty/        외부에서 가져온 에셋
-    └── Quaternius/
+└── ThirdParty/            외부에서 가져온 에셋
+    ├── Quaternius/
+    ├── JKT_Art/
+    ├── Low Poly Fruits/
+    └── Fonts/
 ```
 
-`_Project`와 `ThirdParty`를 분리한 이유는, 저장소를 연 사람이 **직접 만든 것과 가져온 것을 바로 구분**할 수 있게 하기 위해서입니다.
+`_Project`와 `ThirdParty`를 분리한 이유는, 저장소를 연 사람이 **직접 만든 것과 가져온 것을 바로 구분**할 수 있게 하기 위해서입니다. 폰트도 제작물이 아니므로 `ThirdParty` 아래에 둡니다.
+
+`Assets/Settings`(URP 설정)와 `Assets/TextMesh Pro`(TMP Essentials)는 유니티가 위치를 전제하고 생성·참조하는 폴더라 루트에 그대로 두었습니다.
 
 **에셋 출처**
 
-| 에셋 | 제작자 | 라이선스 |
-|---|---|---|
-| Ultimate Monsters Pack | [Quaternius](https://quaternius.com) | [CC0 1.0 Universal (Public Domain Dedication)](https://creativecommons.org/publicdomain/zero/1.0/) |
+| 에셋 | 제작자 | 출처 | 라이선스 |
+|---|---|---|---|
+| Ultimate Monsters Pack | Quaternius | [quaternius.com](https://quaternius.com) | [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/) |
+| JKT_Art (동물·블록·그림자) | _(퍼블리셔명 확인 필요)_ | Unity Asset Store _(링크 추가 예정)_ | Standard Unity Asset Store EULA |
+| Low Poly Fruits | _(퍼블리셔명 확인 필요)_ | Unity Asset Store _(링크 추가 예정)_ | Standard Unity Asset Store EULA |
+| Pretendard | 길형진 (orioncactus) | [GitHub](https://github.com/orioncactus/pretendard) | [SIL Open Font License 1.1](https://scripts.sil.org/OFL) |
+| 배달의민족 주아체 (BMJUA) | 우아한형제들 | [배민 폰트](https://www.woowahan.com/fonts) | 무료 사용 허용 (폰트 파일 자체의 유상 판매 금지) |
 
 CC0는 저작권을 포기하고 공용 영역에 기여하는 라이선스로, 상업적 이용을 포함해 제약 없이 사용할 수 있습니다.
+Unity Asset Store에서 받은 에셋은 무료·유료와 무관하게 Standard Unity Asset Store EULA를 따르며, 완성된 게임에 포함해 배포하는 것은 허용되지만 **에셋 파일 자체를 재배포하는 것은 허용되지 않습니다.**
 
 ---
 
