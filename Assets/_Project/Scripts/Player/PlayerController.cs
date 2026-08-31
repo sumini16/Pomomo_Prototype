@@ -16,6 +16,12 @@ public class PlayerController : MonoBehaviour
     [Header("Knockback")]
     [SerializeField] private float knockbackDecay = 5f;
 
+
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+
+
+
     private CharacterController controller;
     private InputSystem_Actions input;
     private Transform cameraTransform;
@@ -37,6 +43,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // 상점·인벤토리 같은 UI가 열려 있으면 조작을 받지 않습니다.
+        if (UIState.IsModalOpen)
+        {
+            if (animator != null) animator.SetFloat("Speed", 0f);
+            return;
+        }
+
         Vector3 moveDirection = ReadMoveDirection();
 
         RotateTowards(moveDirection);
@@ -48,6 +61,10 @@ public class PlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         knockbackVelocity = Vector3.Lerp(knockbackVelocity, Vector3.zero, knockbackDecay * Time.deltaTime);
+
+        // 이동량을 애니메이터에 넘깁니다. 0이면 Idle, 크면 Walk로 전이됩니다.
+        if (animator != null)
+            animator.SetFloat("Speed", moveDirection.magnitude);
     }
 
     /// <summary>입력을 카메라 기준 수평 방향 벡터로 변환합니다.</summary>

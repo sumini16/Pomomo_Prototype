@@ -17,6 +17,14 @@ public class CompanionAI : MonoBehaviour
     [Tooltip("이보다 가까워지면 멈춥니다. followDistance보다 작아야 합니다.")]
     [SerializeField] private float stopDistance = 1.5f;
 
+    [Header("Ground")]
+    [Tooltip("바닥으로 인식할 레이어. 자기 자신이 포함되면 안 됩니다.")]
+    [SerializeField] private LayerMask groundLayer;
+    [Tooltip("발밑에서 위로 이만큼 올라가 아래로 레이를 쏩니다.")]
+    [SerializeField] private float groundCheckHeight = 3f;
+    [Tooltip("지면에서 띄울 높이. 0이면 딱 붙습니다.")]
+    [SerializeField] private float groundOffset = 0f;
+
     public Transform Target => target;
     public float MoveSpeed => moveSpeed;
     public float RotationSpeed => rotationSpeed;
@@ -46,6 +54,7 @@ public class CompanionAI : MonoBehaviour
     private void Update()
     {
         Machine.Tick();
+        SnapToGround();   // 상태와 무관하게 항상 지면에 붙입니다
     }
 
     /// <summary>대상과의 수평 거리. 높이 차이는 무시합니다.</summary>
@@ -54,5 +63,19 @@ public class CompanionAI : MonoBehaviour
         Vector3 delta = target.position - transform.position;
         delta.y = 0f;
         return delta.magnitude;
+    }
+
+    private void SnapToGround()
+    {
+        Vector3 origin = transform.position + Vector3.up * groundCheckHeight;
+
+        if (!Physics.Raycast(origin, Vector3.down, out RaycastHit hit,
+                             groundCheckHeight * 2f, groundLayer,
+                             QueryTriggerInteraction.Ignore))
+            return;
+
+        Vector3 position = transform.position;
+        position.y = hit.point.y + groundOffset;
+        transform.position = position;
     }
 }

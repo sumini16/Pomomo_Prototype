@@ -1,75 +1,73 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 적의 행동을 담당합니다.
+///
+/// 수치는 하나도 들고 있지 않습니다. 종류별 값은 EnemyData가 갖고,
+/// 이 클래스는 그것을 읽어 상태들에게 넘겨주기만 합니다.
+/// 적 종류를 추가할 때 작성할 코드가 없고, 에셋만 만들면 됩니다(2.11과 같은 이유).
+///
+/// 예외는 순찰 지점입니다. 종류가 아니라 '이 개체가 씬 어디를 도는가'라서
+/// 데이터가 아니라 인스펙터에 남겨두었습니다.
+/// </summary>
 [RequireComponent(typeof(Health))]
 public class EnemyAI : MonoBehaviour
 {
     [Header("Identity")]
-    [Tooltip("퀘스트 처치 집계에 쓰이는 종류 식별자. 처치형 목표를 쓰려면 필요합니다.")]
+    [Tooltip("이 적의 종류. 체력·속도·사거리를 여기서 읽습니다.")]
     [SerializeField] private EnemyData enemyData;
 
-    [Header("Patrol")]
+    [Header("Patrol (개체마다 다름)")]
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private float waypointTolerance = 0.3f;
 
-    [Header("Movement")]
-    [SerializeField] private float patrolSpeed = 2f;
-    [SerializeField] private float chaseSpeed = 4.5f;
-    [SerializeField] private float rotationSpeed = 10f;
+    public EnemyData Data => enemyData;
 
-    [Header("Ranges")]
-    [SerializeField] private float attackRange = 1.5f;
-    [SerializeField] private float detectRange = 6f;
-    [Tooltip("이 거리를 벗어나면 추적을 포기합니다. detectRange보다 커야 합니다.")]
-    [SerializeField] private float loseRange = 9f;
+    public string DisplayName =>
+        enemyData != null && !string.IsNullOrWhiteSpace(enemyData.displayName)
+            ? enemyData.displayName
+            : name;
 
+    // ── 데이터에서 읽는 값들 ──
+    // 상태(PatrolState 등)는 EnemyData의 존재를 모르고 이 프로퍼티만 봅니다.
+    public float PatrolSpeed => enemyData.patrolSpeed;
+    public float ChaseSpeed => enemyData.chaseSpeed;
+    public float RotationSpeed => enemyData.rotationSpeed;
+    public float DetectRange => enemyData.detectRange;
+    public float LoseRange => enemyData.loseRange;
+    public float AttackRange => enemyData.attackRange;
+    public float AttackExitRange => enemyData.attackExitRange;
+    public int AttackDamage => enemyData.attackDamage;
+    public float AttackCooldown => enemyData.attackCooldown;
+    public float KnockbackForce => enemyData.knockbackForce;
 
-    [Header("Combat")]
-    [SerializeField] private int attackDamage = 10;
-    [SerializeField] private float attackCooldown = 1.2f;
-    [SerializeField] private float knockbackForce = 6f;
-
-    [Tooltip("공격 상태에서 이 거리를 벗어나면 다시 추적합니다. attackRange보다 커야 합니다.")]
-    [SerializeField] private float attackExitRange = 2.2f;
-
-    public float AttackExitRange => attackExitRange;
+    // ── 개체가 갖는 값 ──
+    public Transform[] Waypoints => waypoints;
+    public float WaypointTolerance => waypointTolerance;
 
     public Transform Target { get; private set; }
     public Health Health { get; private set; }
 
-    public Transform[] Waypoints => waypoints;
-    public float WaypointTolerance => waypointTolerance;
-    public float PatrolSpeed => patrolSpeed;
-    public float ChaseSpeed => chaseSpeed;
-    public float RotationSpeed => rotationSpeed;
-    public float AttackRange => attackRange;
-    public float DetectRange => detectRange;
-    public float LoseRange => loseRange;
-
     public StateMachine Machine { get; private set; }
     public PatrolState Patrol { get; private set; }
     public ChaseState Chase { get; private set; }
-
-    public int AttackDamage => attackDamage;
-    public float AttackCooldown => attackCooldown;
-    public float KnockbackForce => knockbackForce;
-
     public AttackState Attack { get; private set; }
     public DeadState Dead { get; private set; }
 
-    private void OnEnable() => Health.OnDied += HandleDied;
-    private void OnDisable() => Health.OnDied -= HandleDied;
-
-    private void HandleDied()
-    {
-        Machine.ChangeState(Dead);
-
-        // 누가 듣는지 모른 채 사실만 알립니다. KillTracker가 구독해 집계합니다.
-        // Health가 중복 사망을 막아주므로 여기서 두 번 발행되지 않습니다.
-        CombatEvents.EnemyKilled(enemyData);
-    }
     private void Awake()
     {
         Health = GetComponent<Health>();
+
+        if (enemyData == null)
+        {
+            Debug.LogError($"{name}: EnemyData가 할당되지 않았습니다. 비활성화합니다.");
+            enabled = false;
+            return;
+        }
+
+        // 최대 체력도 종류가 결정합니다.
+        // Health.Awake보다 먼저 불려도 나중에 불려도 결과가 같게 만들어 두었습니다.
+        Health.SetMaxHealth(enemyData.maxHealth);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -80,9 +78,19 @@ public class EnemyAI : MonoBehaviour
         Machine = new StateMachine();
         Patrol = new PatrolState(this);
         Chase = new ChaseState(this);
-
         Attack = new AttackState(this);
         Dead = new DeadState(this);
+    }
+
+    private void OnEnable() => Health.OnDied += HandleDied;
+    private void OnDisable() => Health.OnDied -= HandleDied;
+
+    private void HandleDied()
+    {
+        Machine.ChangeState(Dead);
+
+        // 누가 듣는지 모른 채 사실만 알립니다. KillTracker가 구독해 집계합니다.
+        CombatEvents.EnemyKilled(enemyData);
     }
 
     private void Start()
@@ -119,17 +127,7 @@ public class EnemyAI : MonoBehaviour
 
         Quaternion look = Quaternion.LookRotation(direction, Vector3.up);
         transform.rotation = Quaternion.Slerp(
-            transform.rotation, look, rotationSpeed * Time.deltaTime);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, detectRange);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.gray;
-        Gizmos.DrawWireSphere(transform.position, loseRange);
+            transform.rotation, look, RotationSpeed * Time.deltaTime);
     }
 
     /// <summary>이동 없이 대상 쪽으로 방향만 맞춥니다.</summary>
@@ -143,6 +141,19 @@ public class EnemyAI : MonoBehaviour
         if (delta.sqrMagnitude < 0.001f) return;
 
         Quaternion look = Quaternion.LookRotation(delta.normalized, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, look, rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation, look, RotationSpeed * Time.deltaTime);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (enemyData == null) return;
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, enemyData.detectRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, enemyData.attackRange);
+        Gizmos.color = Color.gray;
+        Gizmos.DrawWireSphere(transform.position, enemyData.loseRange);
     }
 }

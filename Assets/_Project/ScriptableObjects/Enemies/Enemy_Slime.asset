@@ -14,3 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   id: Enemy_Slime
   displayName: "\uC2AC\uB77C\uC784"
+  maxHealth: 30
+  patrolSpeed: 2
+  chaseSpeed: 4.5
+  rotationSpeed: 10
+  detectRange: 6
+  loseRange: 9
+  attackRange: 1.5
+  attackExitRange: 2.2
+  attackDamage: 10
+  attackCooldown: 1.2
+  knockbackForce: 6

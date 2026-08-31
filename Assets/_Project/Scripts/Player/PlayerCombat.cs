@@ -11,7 +11,7 @@ public class PlayerCombat : MonoBehaviour
 
     [Tooltip("이 값보다 정면성이 낮은 대상은 맞지 않습니다.")]
     [SerializeField, Range(-1f, 1f)] private float minFacingDot = 0.2f;
-
+    [SerializeField] private Animator animator;
     private InputSystem_Actions input;
     private float lastAttackTime;
 
@@ -37,8 +37,12 @@ public class PlayerCombat : MonoBehaviour
 
     private void PerformAttack()
     {
+        if (animator != null) animator.SetTrigger("Attack");
+
         int count = Physics.OverlapSphereNonAlloc(
             transform.position, attackRange, hits, targetLayer);
+
+        Debug.Log($"[공격] 감지된 콜라이더 {count}개");          // ← 추가
 
         int hitCount = 0;
 
@@ -49,20 +53,20 @@ public class PlayerCombat : MonoBehaviour
 
             if (toTarget.sqrMagnitude < 0.0001f) continue;
 
-            // 등 뒤의 적은 맞지 않도록 상호작용 판정과 같은 방식
-            if (Vector3.Dot(transform.forward, toTarget.normalized) < minFacingDot)
-                continue;
+            float dot = Vector3.Dot(transform.forward, toTarget.normalized);
+            bool hasHealth = hits[i].TryGetComponent(out Health targetHealth);
 
-            if (hits[i].TryGetComponent(out Health targetHealth))
-            {
-                targetHealth.TakeDamage(attackDamage);
-                hitCount++;
-            }
+            Debug.Log($"  → {hits[i].name} / 정면성 {dot:F2} / Health {(hasHealth ? "있음" : "없음")}");  // ← 추가
+
+            if (dot < minFacingDot) continue;
+            if (!hasHealth) continue;
+
+            targetHealth.TakeDamage(attackDamage);
+            hitCount++;
         }
 
         Debug.Log($"공격  {hitCount}체 명중");
     }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(1f, 0.5f, 0f);

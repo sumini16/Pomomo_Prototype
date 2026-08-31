@@ -1,83 +1,88 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
+[DisallowMultipleComponent]
 public class Nameplate : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private GameObject healthBarRoot;
-    [SerializeField] private Image fillImage;
+    [Header("References")]
+    [SerializeField] private Health targetHealth;   // 비워두면 부모에서 자동 탐색
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private Image fillImage;       // 비워두면 HealthBarRoot/Fill 자동 탐색
 
-    [Header("Options")]
-    [SerializeField] private string displayName = "이름";
-    [SerializeField] private Health targetHealth;
+    [Header("Display")]
+    [SerializeField] private string displayName;    // 비워두면 EnemyAI/Interactable에서 가져옴
 
-    [Tooltip("체력이 가득 찼을 때 체력 바를 숨깁니다. 잡몹에 사용.")]
-    [SerializeField] private bool hideBarWhenFull = true;
-    [SerializeField] private float hideDelay = 3f;
+    [Header("Debug")]
+    [SerializeField] private bool logUpdates;
 
     private Transform cameraTransform;
-    private float lastDamageTime = -999f;
 
     private void Awake()
     {
-        if (Camera.main != null)
-            cameraTransform = Camera.main.transform;
+        if (targetHealth == null) targetHealth = GetComponentInParent<Health>();
+        if (nameText == null) nameText = GetComponentInChildren<TMP_Text>(true);
+        if (fillImage == null) ResolveFillImage();
 
-        nameText.text = displayName;
-
-        // 체력이 없는 대상(NPC 등)은 바 자체를 끕니다
         if (targetHealth == null)
-            healthBarRoot.SetActive(false);
+            Debug.LogError($"[Nameplate] {name}: 부모에서 Health를 찾지 못했습니다.", this);
+        if (fillImage == null)
+            Debug.LogError($"[Nameplate] {name}: Fill Image가 비어 있습니다. HealthBarRoot/Fill 경로를 확인하세요.", this);
+    }
+
+    private void ResolveFillImage()
+    {
+        // GetComponentInChildren은 HealthBarRoot 자신의 Image를 먼저 잡으므로 경로로 찾는다
+        Transform fill = transform.Find("HealthBarRoot/Fill");
+        if (fill != null) fillImage = fill.GetComponent<Image>();
     }
 
     private void OnEnable()
     {
-        if (targetHealth != null)
-            targetHealth.OnHealthChanged += HandleHealthChanged;
+        if (nameText != null) nameText.text = ResolveDisplayName();
+
+        if (targetHealth == null) return;
+        targetHealth.OnHealthChanged += HandleHealthChanged;
+        HandleHealthChanged(targetHealth.Current, targetHealth.Max);   // 초기 1회 반영
     }
 
     private void OnDisable()
     {
-        if (targetHealth != null)
-            targetHealth.OnHealthChanged -= HandleHealthChanged;
-    }
-
-    private void Start()
-    {
-        if (targetHealth == null) return;
-
-        UpdateFill(targetHealth.Current, targetHealth.Max);
-        healthBarRoot.SetActive(!hideBarWhenFull);
+        if (targetHealth != null) targetHealth.OnHealthChanged -= HandleHealthChanged;
     }
 
     private void HandleHealthChanged(int current, int max)
     {
-        UpdateFill(current, max);
+        float ratio = max <= 0 ? 0f : Mathf.Clamp01((float)current / max);
 
-        lastDamageTime = Time.time;
-        healthBarRoot.SetActive(true);
-    }
+        if (logUpdates)
+            Debug.Log($"[Nameplate] {targetHealth.name} → {current}/{max} = {ratio:0.00} / fillImage={(fillImage == null ? "NULL" : fillImage.name)}", this);
 
-    private void UpdateFill(int current, int max)
-    {
-        fillImage.fillAmount = max > 0 ? (float)current / max : 0f;
-    }
-
-    private void Update()
-    {
-        if (!hideBarWhenFull || targetHealth == null) return;
-
-        // 피해를 입은 뒤 일정 시간이 지나면 다시 숨김
-        if (healthBarRoot.activeSelf && Time.time - lastDamageTime > hideDelay)
-            healthBarRoot.SetActive(false);
+        if (fillImage != null) fillImage.fillAmount = ratio;
     }
 
     private void LateUpdate()
     {
-        if (cameraTransform == null) return;
-
-        // 항상 카메라를 향하게 (빌보드)
-        transform.forward = cameraTransform.forward;
+        if (cameraTransform == null)
+        {
+            if (Camera.main == null) return;
+            cameraTransform = Camera.main.transform;
+        }
+        transform.rotation = cameraTransform.rotation;   // 항상 카메라를 향하게
     }
+
+    private string ResolveDisplayName()
+    {
+        if (!string.IsNullOrWhiteSpace(displayName)) return displayName;
+
+        EnemyAI enemy = GetComponentInParent<EnemyAI>();
+        if (enemy != null) return enemy.DisplayName;
+
+        Interactable interactable = GetComponentInParent<Interactable>();
+        if (interactable != null) return interactable.DisplayName;
+
+        return name;
+    }
+
+   
 }
