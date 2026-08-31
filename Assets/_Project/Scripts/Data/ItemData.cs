@@ -10,6 +10,9 @@ public class ItemData : ScriptableObject
     public Sprite icon;
     [TextArea] public string description;
 
+    [Tooltip("인벤토리 분류 탭에서 어느 칸에 들어갈지 결정합니다.")]
+    public ItemCategory category = ItemCategory.Material;
+
     [Header("상점")]
     [Min(0)] public int buyPrice;
     [Min(0)] public int sellPrice;
