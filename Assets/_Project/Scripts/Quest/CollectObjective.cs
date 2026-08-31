@@ -20,7 +20,7 @@ public class CollectObjective : QuestObjective
         if (target == null) return "(목표 미설정)";
 
         int count = ctx?.Inventory != null ? ctx.Inventory.GetCount(target) : 0;
-        return $"{target.displayName}  {Mathf.Min(count, required)}/{required}";
+        return $"{target.displayName}  {count}/{required}";
     }
 
     public override void OnQuestCompleted(QuestContext ctx)

@@ -18,6 +18,6 @@ public class KillObjective : QuestObjective
         if (target == null) return "(목표 미설정)";
 
         int count = ctx?.Kills != null ? ctx.Kills.GetCount(target) : 0;
-        return $"{target.displayName} 처치  {Mathf.Min(count, required)}/{required}";
+        return $"{target.displayName} 처치  {count}/{required}";
     }
 }
