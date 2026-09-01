@@ -5,8 +5,12 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 100;
 
+    [Tooltip("받는 피해에서 차감됩니다. 직업(ClassData)이 값을 지정합니다.")]
+    [SerializeField] private int defense = 0;
+
     public int Current { get; private set; }
     public int Max => maxHealth;
+    public int Defense => defense;
     public bool IsDead => Current <= 0;
 
     /// <summary>(현재 체력, 최대 체력)</summary>
@@ -20,7 +24,7 @@ public class Health : MonoBehaviour
     }
 
     /// <summary>
-    /// 최대 체력을 밖에서 지정합니다. 적은 EnemyData가 종류별 값을 갖고 있습니다.
+    /// 최대 체력을 밖에서 지정합니다. 적은 EnemyData가, 플레이어는 ClassData가 값을 갖고 있습니다.
     ///
     /// Awake 호출 순서에 기대지 않도록 만들었습니다.
     /// 이 메서드가 Health.Awake보다 먼저 불려도, 나중에 불려도 결과가 같습니다(문제 6).
@@ -34,13 +38,22 @@ public class Health : MonoBehaviour
         OnHealthChanged?.Invoke(Current, maxHealth);
     }
 
+    /// <summary>방어력을 밖에서 지정합니다. 체력과 달리 현재값이 없어 다시 채울 것이 없습니다.</summary>
+    public void SetDefense(int value)
+    {
+        defense = Mathf.Max(0, value);
+    }
+
     public void TakeDamage(int amount)
     {
-        Debug.Log($"[{name}] 피해 {amount} → {Current - amount}/{maxHealth}");
         if (IsDead) return;      // 이미 죽었으면 OnDied가 중복 발사되지 않도록
         if (amount <= 0) return; // 음수가 들어와 회복이 되는 것을 막음
 
-        Current = Mathf.Max(0, Current - amount);
+        // 방어력이 공격력보다 높아도 최소 1은 들어갑니다.
+        // 0이 되면 어떤 공격으로도 죽지 않는 교착 상태가 생깁니다.
+        int actual = Mathf.Max(1, amount - defense);
+
+        Current = Mathf.Max(0, Current - actual);
 
         OnHealthChanged?.Invoke(Current, maxHealth);
 
