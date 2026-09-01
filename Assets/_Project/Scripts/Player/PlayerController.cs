@@ -27,6 +27,10 @@ public class PlayerController : MonoBehaviour
     private Transform cameraTransform;
     private float velocityY;
     private Vector3 knockbackVelocity;
+
+    public void SetMoveSpeed(float value) => moveSpeed = Mathf.Max(0.1f, value);
+    public void SetAnimator(Animator value) => animator = value;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();

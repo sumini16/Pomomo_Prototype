@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 348ea3d313ee89c4b97903464464bb69, type: 3}
-  m_Name: warrior
+  m_Name: Class_warrior
   m_EditorClassIdentifier: Assembly-CSharp::ClassData
-  id: 
-  displayName: 
+  id: warrior
+  displayName: "\uC804\uC0AC"
   description: "\uAC80 \uD55C \uC790\uB8E8\uB97C \uBBFF\uACE0 \uC55E\uC7A5\uC11C\uB294
-    \uC774\uB4E4.\n\uBC1C\uC774 \uAC00\uBCCD\uACE0 \uC77C\uACA9\uC774 \uBB35\uC9C1\uD574,
+    \uC774\uB4E4. \uBC1C\uC774 \uAC00\uBCCD\uACE0 \uC77C\uACA9\uC774 \uBB35\uC9C1\uD574,
     \uC5B4\uB5A4 \uC0C1\uD669\uC5D0\uC11C\uB3C4 \uBB34\uB09C\uD558\uAC8C \uC2F8\uC6B4\uB2E4."
   icon: {fileID: 21300000, guid: 162935416895d0e478106997c7d366b2, type: 3}
-  modelPrefab: {fileID: 919132149155446097, guid: edc56a8537ed7a24894981d067e4ac51, type: 3}
+  modelPrefab: {fileID: 0}
   maxHealth: 120
   attackDamage: 20
   moveSpeed: 5.5

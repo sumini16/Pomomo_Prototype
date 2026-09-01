@@ -22,6 +22,10 @@ public class PlayerCombat : MonoBehaviour
     private void OnEnable() => input.Enable();
     private void OnDisable() => input.Disable();
 
+    public void SetAttackDamage(int value) => attackDamage = Mathf.Max(0, value);
+    public void SetAnimator(Animator value) => animator = value;
+
+
     private void Update()
     {
 

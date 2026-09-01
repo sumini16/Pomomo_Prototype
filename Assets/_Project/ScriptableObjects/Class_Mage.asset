@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 348ea3d313ee89c4b97903464464bb69, type: 3}
-  m_Name: Mage
+  m_Name: Class_Mage
   m_EditorClassIdentifier: Assembly-CSharp::ClassData
-  id: 
+  id: mage
   displayName: "\uB9C8\uBC95\uC0AC"
   description: "\uB2E8 \uD55C \uBC88\uC758 \uC8FC\uBB38\uC73C\uB85C \uC801\uC744
-    \uB05D\uB0B8\uB2E4.\n\uB300\uC2E0 \uADF8\uB97C \uC9C0\uCF1C\uC8FC\uB294 \uAC83\uC740
+    \uB05D\uB0B8\uB2E4. \uB300\uC2E0 \uADF8\uB97C \uC9C0\uCF1C\uC8FC\uB294 \uAC83\uC740
     \uC544\uBB34\uAC83\uB3C4 \uC5C6\uB2E4."
   icon: {fileID: 21300000, guid: da09f91fdf840df4e9213ec16d3b4e88, type: 3}
-  modelPrefab: {fileID: 919132149155446097, guid: a231e4652fdd14b4487e15844af63a0c, type: 3}
+  modelPrefab: {fileID: 0}
   maxHealth: 80
-  attackDamage: 380
+  attackDamage: 30
   moveSpeed: 5
   defense: 0
