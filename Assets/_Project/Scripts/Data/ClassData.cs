@@ -27,6 +27,16 @@ public class ClassData : ScriptableObject
     [Tooltip("받는 피해에서 차감됩니다.")]
     public int defense;
 
+    [Header("장비")]
+    [Tooltip("오른손(handslot.r)에 생성할 무기 프리팹입니다.")]
+    public GameObject weaponPrefab;
+
+    [Tooltip("왼손(handslot.l)에 생성할 프리팹입니다. 없으면 비워둡니다.")]
+    public GameObject offhandPrefab;
+
+    [Tooltip("시작 시 인벤토리에 지급할 아이템입니다.")]
+    public ItemData starterItem;
+
     private void OnValidate()
     {
         maxHealth = Mathf.Max(1, maxHealth);

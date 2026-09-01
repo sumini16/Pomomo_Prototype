@@ -27,13 +27,15 @@ public class ItemTooltip : MonoBehaviour
     {
         if (item == null) return;
 
-        nameText.text = item.displayName;
-        descriptionText.text = item.description;
+        if (nameText != null) nameText.text = item.displayName;
+        if (descriptionText != null) descriptionText.text = item.description;
 
         bool hasIcon = item.icon != null;
-        iconImage.gameObject.SetActive(hasIcon);
-        if (hasIcon)
-            iconImage.sprite = item.icon;
+        if (iconImage != null)
+        {
+            iconImage.gameObject.SetActive(hasIcon);
+            if (hasIcon) iconImage.sprite = item.icon;
+        }
 
         gameObject.SetActive(true);
         transform.SetAsLastSibling();

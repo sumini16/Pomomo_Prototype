@@ -1,23 +1,31 @@
 using UnityEngine;
 
 /// <summary>
-/// 선택된 직업의 수치를 플레이어 컴포넌트들에 주입합니다.
+/// 선택된 직업의 수치와 기본 장비를 플레이어에 적용합니다.
 ///
-/// 각 컴포넌트가 GameManager를 직접 보게 하면 직업을 아는 곳이 세 군데로 늘어납니다.
-/// 주입하는 책임을 이 한 곳에 모아, 컴포넌트들은 "값을 받는" 역할만 하게 했습니다.
+/// 각 컴포넌트가 GameManager를 직접 보게 하면 직업을 아는 곳이 네 군데로 늘어납니다.
+/// 주입하는 책임을 이 한 곳에 모아, 나머지는 값을 받는 역할만 하게 했습니다.
+///
+/// 장비는 ClassData가 프리팹으로 들고 있습니다.
+/// 씬에 미리 배치해 켜고 끄는 방법도 검토했지만, 그러면 직업을 추가할 때마다
+/// 에셋과 씬을 함께 고쳐야 합니다. 직업 추가가 에셋 하나로 끝나도록 생성 방식을 택했습니다.
 /// </summary>
-[DefaultExecutionOrder(-50)]   // 각 컴포넌트의 Start보다 먼저
+[DefaultExecutionOrder(-50)]
 public class PlayerClassApplier : MonoBehaviour
 {
     [Tooltip("선택 씬을 거치지 않고 이 씬을 바로 실행할 때 사용할 직업입니다.")]
     [SerializeField] private ClassData fallbackClass;
 
+    [Header("적용 대상")]
     [SerializeField] private Health health;
     [SerializeField] private PlayerCombat combat;
     [SerializeField] private PlayerController controller;
+    [SerializeField] private PlayerInventory inventory;
 
-    [Tooltip("직업 모델이 들어갈 자리. 기존 자식은 지우고 새 모델을 붙입니다.")]
-    [SerializeField] private Transform modelRoot;
+    [Header("장착 지점")]
+    [Tooltip("모델의 handslot.r 본. Hierarchy 검색창에 handslot을 치면 찾을 수 있습니다.")]
+    [SerializeField] private Transform rightHandSlot;
+    [SerializeField] private Transform leftHandSlot;
 
     public ClassData Current { get; private set; }
 
@@ -26,6 +34,7 @@ public class PlayerClassApplier : MonoBehaviour
         if (health == null) health = GetComponent<Health>();
         if (combat == null) combat = GetComponent<PlayerCombat>();
         if (controller == null) controller = GetComponent<PlayerController>();
+        if (inventory == null) inventory = GetComponent<PlayerInventory>();
 
         ClassData data = GameManager.Instance != null ? GameManager.Instance.SelectedClass : null;
         if (data == null) data = fallbackClass;
@@ -52,36 +61,25 @@ public class PlayerClassApplier : MonoBehaviour
         if (combat != null) combat.SetAttackDamage(data.attackDamage);
         if (controller != null) controller.SetMoveSpeed(data.moveSpeed);
 
-        SwapModel(data.modelPrefab);
+        Equip(data.weaponPrefab, rightHandSlot);
+        Equip(data.offhandPrefab, leftHandSlot);
+
+        if (data.starterItem != null && inventory != null)
+            inventory.Add(data.starterItem, 1);
     }
 
-    private void SwapModel(GameObject prefab)
+    /// <summary>장착 슬롯을 비우고 장비를 생성합니다. prefab이 null이면 비우기만 합니다.</summary>
+    private void Equip(GameObject prefab, Transform slot)
     {
-        if (prefab == null || modelRoot == null) return;
+        if (slot == null) return;
 
-        // DestroyImmediate가 아닌 Destroy는 프레임 끝에 처리되므로,
-        // 남아 있는 자식이 새 모델과 겹쳐 보이지 않도록 먼저 꺼둡니다.
-        for (int i = modelRoot.childCount - 1; i >= 0; i--)
-        {
-            GameObject old = modelRoot.GetChild(i).gameObject;
-            old.SetActive(false);
-            Destroy(old);
-        }
+        for (int i = slot.childCount - 1; i >= 0; i--)
+            Destroy(slot.GetChild(i).gameObject);
 
-        GameObject model = Instantiate(prefab, modelRoot);
-        model.transform.localPosition = Vector3.zero;
-        model.transform.localRotation = Quaternion.identity;
+        if (prefab == null) return;
 
-        // 모델과 함께 Animator도 교체합니다.
-        // 이 줄이 없으면 이동·공격 애니메이션이 파괴된 오브젝트를 향해 호출됩니다.
-        Animator animator = model.GetComponentInChildren<Animator>();
-        if (animator == null)
-        {
-            Debug.LogWarning($"[PlayerClassApplier] {prefab.name}에 Animator가 없습니다.", this);
-            return;
-        }
-
-        if (controller != null) controller.SetAnimator(animator);
-        if (combat != null) combat.SetAnimator(animator);
+        // Instantiate(prefab, slot)은 프리팹에 저장된 로컬 좌표를 그대로 씁니다.
+        // 손에 맞춰 조정한 위치·회전이 프리팹에 들어 있으므로 여기서 리셋하지 않습니다.
+        Instantiate(prefab, slot);
     }
 }

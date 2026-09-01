@@ -22,3 +22,6 @@ MonoBehaviour:
   attackDamage: 10
   moveSpeed: 4
   defense: 5
+  weaponPrefab: {fileID: 1746639275636317911, guid: 1762df84e6a33424582fd67930b02746, type: 3}
+  offhandPrefab: {fileID: 2542266782827619728, guid: ceebbfd8f4d9d644bae396a00430165c, type: 3}
+  starterItem: {fileID: 11400000, guid: f034dc16ed75c714d8c65f4ece90dbdf, type: 2}
