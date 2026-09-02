@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744f183a7f281b342a6cba0ebea9e095, type: 3}
   m_Name: Quest_KillSlime
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
+  id: 'kill_slime '
   title: "\uC2AC\uB77C\uC784 \uCC98\uCE58\uD558\uAE30"
   objective: {fileID: 11400000, guid: 4f5e6cf01a601464c8427d1e22692f16, type: 2}
   prerequisite: {fileID: 11400000, guid: 2a4af495a12bd9d4ebae1c00e0ec4e01, type: 2}
@@ -20,8 +21,8 @@ MonoBehaviour:
     \uC880 \uCC98\uCE58\uD574\uC8FC\uACA0\uB098?"
   progressText: "\uC544\uC9C1 \uBAAC\uC2A4\uD130\uAC00 \uD310 \uCE58\uACE0 \uC788\uB124
     ..\t\n\n"
-  completeText: "\uACE0\uB9D9\uB124 \uB9C8\uC744 \uC548\uCABD\uC73C\uB85C \uAC00\uC11C
-    \uB974\uBC1C\uC744 \uCC3E\uC544\uBCF4\uAC8C"
+  completeText: "\uACE0\uB9D9\uB124 \uCC98\uC74C \uBCF4\uB294 \uC5BC\uAD74\uC778\uB370
+    ... "
   declineText: "\uD558 .. \uB098 \uD63C\uC790\uB294 \uBAAC\uC2A4\uD130\uB4E4\uC744
     \uCC98\uCE58\uD558\uAE30 \uC5ED\uBD80\uC871\uC778\uB370 \uD070\uC77C\uC77C\uC138
     ..\n"

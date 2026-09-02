@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42604b202038cbe4e95fb539ed399236, type: 3}
   m_Name: Obj_Talk_Reval
   m_EditorClassIdentifier: Assembly-CSharp::TalkObjective
-  target: {fileID: 0}
+  target: {fileID: 11400000, guid: 9dfe76df6bcd0324bb71696666b4d425, type: 2}

@@ -26,8 +26,19 @@ public class QuestGiver : Interactable
             return;
         }
 
+
         QuestContext ctx = progress.Context;
         QuestLog log = progress.Log;
+
+        // 아직 소개받지 않은 인물은 대화 자체가 열리지 않습니다.
+        // 여기서 막지 않으면, 순서를 건너뛰고 찾아온 것만으로 대화 목표가 달성됩니다.
+        if (npcData != null && npcData.requiredQuest != null &&
+            log.GetState(npcData.requiredQuest) == QuestState.NotStarted)
+        {
+            DialogueEvents.Request(speakerName, npcData.lockedLine);
+            return;
+        }
+
 
         progress.Flags.MarkTalked(npcData);
 
@@ -35,16 +46,17 @@ public class QuestGiver : Interactable
 
         if (quest == null)
         {
+            if (npcData != null) progress.Flags.MarkTalked(npcData);
             DialogueEvents.Request(speakerName, idleText);
             return;
         }
 
         if (!log.IsUnlocked(quest))
         {
+            // 잠금 대사만 들려준 경우는 '만났다'로 치지 않습니다.
             DialogueEvents.Request(speakerName, quest.lockedText);
             return;
         }
-
         switch (log.GetState(quest))
         {
             case QuestState.NotStarted:

@@ -25,3 +25,5 @@ MonoBehaviour:
   declineText: "\uADF8\uB7F0\uAC00. \uC0DD\uAC01\uC774 \uBC14\uB00C\uBA74 \uC5B8\uC81C\uB4E0
     \uB2E4\uC2DC \uC624\uAC8C."
   lockedText: 
+  rewardGold: 0
+  id: berry_collect

@@ -36,4 +36,24 @@ public class PlayerInventory : MonoBehaviour
     {
         return items.TryGetValue(item, out int count) ? count : 0;
     }
+
+    /// <summary>
+    /// 저장된 목록으로 통째로 되돌립니다.
+    /// 현재 내용에 더하는 것이 아니라 교체하므로, 불러오기 전에 얻은 아이템은 사라집니다.
+    /// </summary>
+    public void Restore(IEnumerable<KeyValuePair<ItemData, int>> saved)
+    {
+        items.Clear();
+
+        if (saved != null)
+        {
+            foreach (KeyValuePair<ItemData, int> pair in saved)
+            {
+                if (pair.Key == null || pair.Value <= 0) continue;
+                items[pair.Key] = pair.Value;
+            }
+        }
+
+        OnInventoryChanged?.Invoke();
+    }
 }

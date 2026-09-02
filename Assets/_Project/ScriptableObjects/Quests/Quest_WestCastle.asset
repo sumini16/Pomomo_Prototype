@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744f183a7f281b342a6cba0ebea9e095, type: 3}
+  m_Name: Quest_WestCastle
+  m_EditorClassIdentifier: Assembly-CSharp::QuestData
+  id: west_castle
+  title: "\uC11C\uCABD \uC131\uC73C\uB85C"
+  objective: {fileID: 0}
+  prerequisite: {fileID: 11400000, guid: 7cfb9e2ce132614448968b628dd8beec, type: 2}
+  acceptText: "\uC790\uB124\uAC00 \uADF8 \uC544\uC774\uB85C\uAD70. \uBA3C \uAE38
+    \uC624\uB290\uB77C \uACE0\uC0DD\uD588\uB124.\n\uC11C\uCABD \uC131\uC5D0\uC11C
+    \uC790\uB124\uB97C \uAE30\uB2E4\uB9AC\uB294 \uC774\uAC00 \uC788\uB124.  \uAC00\uACA0\uB294\uAC00?"
+  progressText: "\uAE38\uC740 \uC5F4\uB824 \uC788\uB124. \uC900\uBE44\uB418\uAC70\uB4E0
+    \uB5A0\uB098\uAC8C."
+  completeText: 
+  declineText: "\uC11C\uB450\uB97C \uAC83 \uC5C6\uB124. \uB9C8\uC74C\uC774 \uC815\uD574\uC9C0\uAC70\uB4E0
+    \uB2E4\uC2DC \uC624\uAC8C."
+  lockedText: "\uC232\uC774 \uC2DC\uB044\uB7EC\uC6CC\uC11C\uC57C \uBA3C \uAE38\uC744
+    \uAC08 \uC218 \uC5C6\uC9C0. \uADF8\uAC83\uBD80\uD130 \uD574\uACB0\uD558\uAC8C."
+  rewardGold: 0

@@ -68,13 +68,21 @@ public class ShopUI : MonoBehaviour
 
     /// <summary>아직 확정되지 않은 주문. 확정 전에는 아무것도 바뀌지 않습니다.</summary>
     private readonly Dictionary<ItemData, int> cart = new Dictionary<ItemData, int>();
-
     private readonly List<ItemSlotUI> cartSlots = new List<ItemSlotUI>();
 
-    public bool IsOpen => panelRoot.activeSelf;
+    public bool IsOpen => panelRoot != null && panelRoot.activeSelf;
 
     private void Awake()
     {
+        // 연결이 빠지면 열 때 예외가 나는 대신, 시작 시 한 번 알리고 멈춥니다.
+        if (panelRoot == null || rowContainer == null || cartContainer == null
+            || rowPrefab == null || cartSlotPrefab == null || inventoryUI == null)
+        {
+            Debug.LogError("[ShopUI] 필수 참조가 비어 있습니다. 인스펙터를 확인하세요.", this);
+            enabled = false;
+            return;
+        }
+
         panelRoot.SetActive(false);
 
         if (closeButton != null) closeButton.onClick.AddListener(Close);
@@ -88,8 +96,18 @@ public class ShopUI : MonoBehaviour
         BuildCartSlots();
     }
 
+    private void OnDisable()
+    {
+        // 씬 전환 등으로 Close를 거치지 않고 사라지면 UIState가 켜진 채 남아
+        // 플레이어 입력이 영영 막힙니다. 여기서 반드시 정리합니다.
+        if (IsOpen) Close();
+    }
+
     public void Open(Shop target, PlayerProgress player, string shopName)
     {
+        // 이미 열려 있는 상태에서 다시 열면 이벤트가 중복 구독됩니다.
+        if (IsOpen) Close();
+
         shop = target;
         progress = player;
 
@@ -117,10 +135,10 @@ public class ShopUI : MonoBehaviour
 
         cart.Clear();
 
-        inventoryUI.ExitTradeMode();
+        if (inventoryUI != null) inventoryUI.ExitTradeMode();
         if (tooltip != null) tooltip.Hide();
 
-        panelRoot.SetActive(false);
+        if (panelRoot != null) panelRoot.SetActive(false);
         UIState.SetModal(false);
 
         shop = null;
@@ -144,7 +162,7 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    // 탭
+    // ────────────────────────────── 탭
 
     private void SelectTab(Tab tab)
     {
@@ -155,7 +173,9 @@ public class ShopUI : MonoBehaviour
 
         ApplyTabColors();
         ApplyTabLabels();
+
         if (tooltip != null) tooltip.Hide();
+
         RefreshAll();
     }
 
@@ -183,13 +203,11 @@ public class ShopUI : MonoBehaviour
         if (confirmButtonText != null) confirmButtonText.text = buying ? "구매" : "판매";
     }
 
-    // 장바구니
+    // ────────────────────────────── 장바구니
 
     private void BuildCartSlots()
     {
-        for (int i = cartContainer.childCount - 1; i >= 0; i--)
-            Destroy(cartContainer.GetChild(i).gameObject);
-
+        ClearChildren(cartContainer);
         cartSlots.Clear();
 
         for (int i = 0; i < cartSlotCount; i++)
@@ -200,10 +218,32 @@ public class ShopUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Destroy는 프레임 끝에 처리되므로, 지운 직후 새로 만들면 그 프레임 동안 두 벌이 공존합니다.
+    /// Layout Group이 둘 다 계산해 목록이 순간 늘어나 보이므로 먼저 숨깁니다.
+    /// </summary>
+    private void ClearChildren(Transform parent)
+    {
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            GameObject child = parent.GetChild(i).gameObject;
+            child.SetActive(false);
+            Destroy(child);
+        }
+    }
+
     /// <summary>목록에서 누르면 여기로 옵니다. 아직 거래는 일어나지 않습니다.</summary>
     private void AddToCart(ItemData item)
     {
         if (item == null) return;
+
+        // 인벤토리 목록도 같은 콜백을 쓰기 때문에, 구매 탭에서 내 물건을 눌러
+        // '구매' 주문에 담기는 일이 생깁니다. 여기서 한 번 걸러냅니다.
+        if (currentTab == Tab.Buy && !ShopSells(item))
+        {
+            SetFeedback("이 상점에서 팔지 않는 물건입니다.", false);
+            return;
+        }
 
         int inCart = cart.TryGetValue(item, out int n) ? n : 0;
 
@@ -219,6 +259,18 @@ public class ShopUI : MonoBehaviour
 
         cart[item] = inCart + 1;
         RefreshCart();
+    }
+
+    private bool ShopSells(ItemData item)
+    {
+        if (shop == null || item == null) return false;
+
+        foreach (ItemData sold in shop.ItemsForSale)
+        {
+            if (sold == item) return true;
+        }
+
+        return false;
     }
 
     private void RemoveFromCart(ItemData item)
@@ -241,7 +293,7 @@ public class ShopUI : MonoBehaviour
     {
         int total = 0;
 
-        foreach (var pair in cart)
+        foreach (KeyValuePair<ItemData, int> pair in cart)
         {
             int unit = currentTab == Tab.Buy ? pair.Key.buyPrice : pair.Key.sellPrice;
             total += unit * pair.Value;
@@ -265,7 +317,7 @@ public class ShopUI : MonoBehaviour
         // 거래가 인벤토리 이벤트를 일으켜 cart를 건드릴 수 있으므로 복사본을 순회합니다.
         List<KeyValuePair<ItemData, int>> order = new List<KeyValuePair<ItemData, int>>(cart);
 
-        foreach (var pair in order)
+        foreach (KeyValuePair<ItemData, int> pair in order)
         {
             for (int i = 0; i < pair.Value; i++)
             {
@@ -309,7 +361,7 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    // 갱신
+    // ────────────────────────────── 갱신
 
     private void HandleGoldChanged(int gold) => RefreshAll();
 
@@ -329,8 +381,7 @@ public class ShopUI : MonoBehaviour
 
     private void RefreshList()
     {
-        for (int i = rowContainer.childCount - 1; i >= 0; i--)
-            Destroy(rowContainer.GetChild(i).gameObject);
+        ClearChildren(rowContainer);
 
         int count = 0;
 
@@ -347,9 +398,9 @@ public class ShopUI : MonoBehaviour
         }
         else
         {
-            foreach (var pair in progress.Inventory.Items)
+            foreach (KeyValuePair<ItemData, int> pair in progress.Inventory.Items)
             {
-                if (pair.Key.sellPrice <= 0) continue;   // 팔 수 없는 물건은 목록에서 제외
+                if (pair.Key == null || pair.Key.sellPrice <= 0) continue;   // 팔 수 없는 물건은 제외
 
                 ItemSlotUI row = Instantiate(rowPrefab, rowContainer);
                 row.Bind(pair.Key, pair.Value, tooltip, AddToCart, pair.Key.sellPrice);
@@ -370,7 +421,7 @@ public class ShopUI : MonoBehaviour
     {
         int index = 0;
 
-        foreach (var pair in cart)
+        foreach (KeyValuePair<ItemData, int> pair in cart)
         {
             if (index >= cartSlots.Count) break;
 
@@ -396,6 +447,7 @@ public class ShopUI : MonoBehaviour
         if (afterValueText != null)
         {
             afterValueText.text = $"{after:N0}";
+
             // 살 수 없는 금액이면 빨갛게. 누르기 전에 알 수 있습니다.
             afterValueText.color = after < 0 ? FailColor : NormalValueColor;
         }

@@ -41,4 +41,14 @@ public class Wallet : MonoBehaviour
         OnGoldChanged?.Invoke(currentGold);
         return true;
     }
+
+    /// <summary>
+    /// 저장된 값으로 되돌립니다. Add/TrySpend와 달리 검증 없이 그대로 덮어씁니다.
+    /// 복원은 거래가 아니라 과거 상태의 재현이므로 같은 규칙을 적용하지 않습니다.
+    /// </summary>
+    public void Restore(int gold)
+    {
+        currentGold = Mathf.Max(0, gold);
+        OnGoldChanged?.Invoke(currentGold);
+    }
 }

@@ -3,6 +3,9 @@
 [CreateAssetMenu(fileName = "Quest_", menuName = "Game/Quest Data")]
 public class QuestData : ScriptableObject
 {
+    [Tooltip("세이브 파일에 기록되는 고유 키. 한 번 정하면 바꾸지 않습니다.")]
+    public string id;
+
     public string title;
 
     [Tooltip("완료 조건. 수집·처치·대화 중 하나를 에셋으로 만들어 할당합니다.")]
@@ -25,4 +28,14 @@ public class QuestData : ScriptableObject
     [Tooltip("퀘스트 완료 보고 시 지급할 골드")]
     [Min(0)]
     public int rewardGold;
+
+    
+
+    
+    private void OnValidate()
+    {
+        if (string.IsNullOrWhiteSpace(id)) id = name;
+    }
+
+
 }
