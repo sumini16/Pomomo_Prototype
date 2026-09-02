@@ -38,6 +38,14 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI emptyText;
     [SerializeField] private ItemTooltip tooltip;
 
+
+    [Tooltip("아이템 사용 담당. 비워두면 인벤토리와 같은 오브젝트에서 찾습니다.")]
+    [SerializeField] private ItemUser itemUser;
+
+    [Tooltip("사용 결과를 보여줄 텍스트. 없어도 동작합니다.")]
+    [SerializeField] private TextMeshProUGUI useFeedbackText;
+
+
     [Header("제목")]
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private string normalTitle = "소지품";
@@ -221,10 +229,11 @@ public class InventoryUI : MonoBehaviour
             // 분류 필터. '전체' 탭이면 전부 통과시킵니다.
             if (!showAll && pair.Key.category != currentCategory) continue;
 
-            if (index >= slots.Count) break;   // 칸이 모자라면 나머지는 그리지 않습니다
-
             int price = priceProvider != null ? priceProvider(pair.Key) : 0;
-            slots[index].Bind(pair.Key, pair.Value, tooltip, slotClickAction, price);
+
+            // 상점이 열려 있으면 상점이 주입한 동작을, 평소에는 사용을 연결합니다.
+            Action<ItemData> click = InTradeMode ? slotClickAction : UseItem;
+            slots[index].Bind(pair.Key, pair.Value, tooltip, click, price);
 
             index++;
         }
@@ -237,6 +246,39 @@ public class InventoryUI : MonoBehaviour
         {
             emptyText.gameObject.SetActive(index == 0);
             emptyText.text = showAll ? "비어 있습니다" : "이 분류에 아이템이 없습니다";
+        }
+    }
+
+    /// <summary>슬롯을 눌렀을 때(상점이 아닐 때) 아이템을 사용합니다.</summary>
+    private void UseItem(ItemData item)
+    {
+        if (itemUser == null && inventory != null)
+            itemUser = inventory.GetComponent<ItemUser>();
+
+        if (itemUser == null) return;
+
+        UseResult result = itemUser.TryUse(item);
+        ShowUseFeedback(item, result);
+    }
+
+    private void ShowUseFeedback(ItemData item, UseResult result)
+    {
+        if (useFeedbackText == null) return;
+
+        switch (result)
+        {
+            case UseResult.Success:
+                useFeedbackText.text = $"{item.displayName}을(를) 사용했습니다.";
+                break;
+            case UseResult.AlreadyFull:
+                useFeedbackText.text = "체력이 이미 가득 찼습니다.";
+                break;
+            case UseResult.NoItem:
+                useFeedbackText.text = "가지고 있지 않습니다.";
+                break;
+            default:
+                useFeedbackText.text = "사용할 수 없는 물건입니다.";
+                break;
         }
     }
 }

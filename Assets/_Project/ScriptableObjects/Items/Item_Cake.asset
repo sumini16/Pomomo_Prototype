@@ -17,5 +17,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 0bfd884c904b3ab44bfad71f38c7c04f, type: 3}
   description: "\uCCB4\uB825\uC744 5 \uD68C\uBCF5\uD55C\uB2E4."
   category: 2
+  healAmount: 10
   buyPrice: 15
   sellPrice: 5

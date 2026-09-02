@@ -441,6 +441,8 @@ MonoBehaviour:
   inventory: {fileID: 1757021792}
   emptyText: {fileID: 0}
   tooltip: {fileID: 6318961284950556503}
+  itemUser: {fileID: 0}
+  useFeedbackText: {fileID: 0}
   titleText: {fileID: 0}
   normalTitle: "\uC18C\uC9C0\uD488"
   tradeTitle: "\uC18C\uC9C0\uD488  (\uD074\uB9AD\uD558\uBA74 \uD310\uB9E4)"
@@ -15955,6 +15957,8 @@ GameObject:
   - component: {fileID: 1757021796}
   - component: {fileID: 1757021800}
   - component: {fileID: 1757021801}
+  - component: {fileID: 1757021802}
+  - component: {fileID: 1757021803}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -16134,6 +16138,7 @@ MonoBehaviour:
     m_Bits: 128
   minFacingDot: 0.2
   animator: {fileID: 1211590731}
+  hitReaction: {fileID: 0}
 --- !u!114 &1757021796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16215,6 +16220,33 @@ MonoBehaviour:
   inventory: {fileID: 1757021792}
   rightHandSlot: {fileID: 912104363}
   leftHandSlot: {fileID: 912104364}
+--- !u!114 &1757021802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757021785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926d6a5977568614998dcebde983aa9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitReaction
+  animator: {fileID: 1211590731}
+  hitTrigger: Hit
+  stunDuration: 0.4
+--- !u!114 &1757021803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757021785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422481dbe71a77c40bedb036b3ae40b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemUser
 --- !u!1 &1806643227
 GameObject:
   m_ObjectHideFlags: 0
@@ -19613,6 +19645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHitReaction
   animator: {fileID: 919132149262613673}
   hitTrigger: Hit
+  stunDuration: 0.4
 --- !u!222 &1030001604273911249
 CanvasRenderer:
   m_ObjectHideFlags: 0

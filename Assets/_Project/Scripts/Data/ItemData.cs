@@ -12,6 +12,10 @@ public class ItemData : ScriptableObject
 
     [Tooltip("인벤토리 분류 탭에서 어느 칸에 들어갈지 결정합니다.")]
     public ItemCategory category = ItemCategory.Material;
+    [Header("사용")]
+    [Tooltip("사용 시 회복량. 0이면 사용할 수 없는 아이템입니다.")]
+    [Min(0)] public int healAmount;
+
 
     [Header("상점")]
     [Min(0)] public int buyPrice;
