@@ -11337,6 +11337,7 @@ GameObject:
   - component: {fileID: 1134849064}
   - component: {fileID: 1134849063}
   - component: {fileID: 1134849062}
+  - component: {fileID: 1134849066}
   m_Layer: 3
   m_Name: Reval
   m_TagString: Untagged
@@ -11439,6 +11440,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1134849066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134849060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 516251eb31d20ab4285a6a3f11ad73c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestGiver
+  displayName: 
+  quests:
+  - {fileID: 11400000, guid: e1204fb435cc6bc4ebd033848556b2bb, type: 2}
+  speakerName: "\uB974\uBC1C"
+  npcData: {fileID: 11400000, guid: 9dfe76df6bcd0324bb71696666b4d425, type: 2}
+  idleText: 
 --- !u!1 &1136611707 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5958206019380036344, guid: 387a192dfa2ba7a4da50e56fdd3b2d77, type: 3}
@@ -11760,6 +11779,10 @@ MonoBehaviour:
   - {fileID: 1693985232}
   - {fileID: 158286833}
   waypointTolerance: 0.3
+  animator: {fileID: 919132149262613673}
+  attackTrigger: Attack
+  dieTrigger: Die
+  deathDelay: 1.5
 --- !u!114 &1155849828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11921,6 +11944,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1181693725}
   - component: {fileID: 1181693723}
+  - component: {fileID: 1181693726}
   m_Layer: 0
   m_Name: Companion
   m_TagString: Untagged
@@ -11960,13 +11984,36 @@ Transform:
   m_GameObject: {fileID: 1181693722}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -37.2, y: 0, z: -32.5}
+  m_LocalPosition: {x: -37.2, y: 0.53, z: -32.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5615813729328315010}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1181693726
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181693722}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.2232517
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.4155137, z: 0}
 --- !u!114 &1188768226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12710,6 +12757,10 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 1b4d685a7f4b4c849879d9ed18940ba9, type: 2}
   waypoints: []
   waypointTolerance: 0.3
+  animator: {fileID: 0}
+  attackTrigger: Attack
+  dieTrigger: Die
+  deathDelay: 1.5
 --- !u!114 &1330257019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15277,6 +15328,10 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 1b4d685a7f4b4c849879d9ed18940ba9, type: 2}
   waypoints: []
   waypointTolerance: 0.3
+  animator: {fileID: 0}
+  attackTrigger: Attack
+  dieTrigger: Die
+  deathDelay: 1.5
 --- !u!114 &1686597407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15491,7 +15546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EndingUI
   group: {fileID: 1706721748}
   messageText: {fileID: 1936906207}
-  finalQuest: {fileID: 11400000, guid: f14dfee51ec84aa4f80025f5ea011083, type: 2}
+  finalQuest: {fileID: 11400000, guid: e1204fb435cc6bc4ebd033848556b2bb, type: 2}
   delay: 2
   fadeDuration: 1.5
   message: "\uC5EC\uAE30\uAE4C\uC9C0\uAC00 \uD504\uB85C\uD1A0\uD0C0\uC785\uC785\uB2C8\uB2E4."
@@ -19490,6 +19545,8 @@ GameObject:
   - component: {fileID: 1155849828}
   - component: {fileID: 1155849827}
   - component: {fileID: 919132149262613672}
+  - component: {fileID: 919132149262613673}
+  - component: {fileID: 919132149262613674}
   m_Layer: 7
   m_Name: PinkBlob
   m_TagString: Untagged
@@ -19520,6 +19577,42 @@ CapsuleCollider:
   m_Height: 2.6623394
   m_Direction: 1
   m_Center: {x: 0.06458664, y: 0.8311697, z: 0}
+--- !u!95 &919132149262613673
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149262613671}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 6dc8c9354ab2e6149a996331705c7ebd, type: 3}
+  m_Controller: {fileID: 9100000, guid: adef4482bbf01204aa9d366be6b3584d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &919132149262613674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149262613671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926d6a5977568614998dcebde983aa9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHitReaction
+  animator: {fileID: 919132149262613673}
+  hitTrigger: Hit
 --- !u!222 &1030001604273911249
 CanvasRenderer:
   m_ObjectHideFlags: 0

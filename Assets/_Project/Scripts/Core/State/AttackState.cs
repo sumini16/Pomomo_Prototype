@@ -39,6 +39,8 @@ public class AttackState : State
     {
         if (ai.Target == null) return;
 
+        ai.PlayAttackAnimation();
+
         if (ai.Target.TryGetComponent(out Health targetHealth))
             targetHealth.TakeDamage(ai.AttackDamage);
 
@@ -51,6 +53,6 @@ public class AttackState : State
                 player.ApplyKnockback(direction.normalized, ai.KnockbackForce);
         }
 
-        Debug.Log($"{ai.name} 공격 → {ai.AttackDamage} 피해");
+        
     }
 }

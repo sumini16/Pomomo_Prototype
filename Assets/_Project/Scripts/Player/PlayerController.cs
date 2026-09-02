@@ -122,6 +122,6 @@ public class PlayerController : MonoBehaviour
     public void ApplyKnockback(Vector3 direction, float force)
     {
         knockbackVelocity = direction * force;
-        Debug.Log($"넉백 적용 {direction} × {force}");
+       
     }
 }

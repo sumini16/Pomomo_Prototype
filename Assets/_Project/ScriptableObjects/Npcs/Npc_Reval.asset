@@ -14,11 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcData
   id: Npc_Reval
   displayName: "\uB974\uBC1C"
-  firstLine: "\uC790\uB124\uAC00 \uADF8 \uC544\uC774\uB85C\uAD70. \uBA3C \uAE38 \uC624\uB290\uB77C
-    \uACE0\uC0DD\uD588\uB124.\n\uC11C\uCABD \uC131\uC73C\uB85C \uAC00\uC57C \uD560
-    \uAC78\uC138. \uD558\uC9C0\uB9CC \uADF8\uAC74... \uC900\uBE44\uAC00 \uB41C \uB2E4\uC74C\uC758
-    \uC774\uC57C\uAE30\uC9C0."
-  repeatLine: "\uC900\uBE44\uB418\uBA74 \uC5B8\uC81C\uB4E0 \uB9D0\uD558\uAC8C."
+  firstLine: 
+  repeatLine: 
   requiredQuest: {fileID: 11400000, guid: f14dfee51ec84aa4f80025f5ea011083, type: 2}
   lockedLine: "\uC232\uC774 \uC2DC\uB044\uB7EC\uC6CC\uC11C\uC57C \uC774\uC57C\uAE30\uB97C
     \uB098\uB20C \uC218\uAC00 \uC5C6\uC9C0. \uBA3C\uC800 \uADF8\uAC83\uBD80\uD130

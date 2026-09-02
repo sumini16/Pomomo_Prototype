@@ -54,6 +54,18 @@ public class EnemyAI : MonoBehaviour
     public AttackState Attack { get; private set; }
     public DeadState Dead { get; private set; }
 
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private string attackTrigger = "Attack";
+    [SerializeField] private string dieTrigger = "Die";
+
+    [Tooltip("사망 모션이 재생될 시간. 이후 오브젝트가 사라집니다.")]
+    [SerializeField] private float deathDelay = 1.5f;
+
+    public float DeathDelay => deathDelay;
+
+
+
     private void Awake()
     {
         Health = GetComponent<Health>();
@@ -155,5 +167,15 @@ public class EnemyAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, enemyData.attackRange);
         Gizmos.color = Color.gray;
         Gizmos.DrawWireSphere(transform.position, enemyData.loseRange);
+    }
+
+    public void PlayAttackAnimation()
+    {
+        if (animator != null) animator.SetTrigger(attackTrigger);
+    }
+
+    public void PlayDeathAnimation()
+    {
+        if (animator != null) animator.SetTrigger(dieTrigger);
     }
 }

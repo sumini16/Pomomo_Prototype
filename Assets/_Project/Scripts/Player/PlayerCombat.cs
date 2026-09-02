@@ -17,7 +17,15 @@ public class PlayerCombat : MonoBehaviour
 
     private readonly Collider[] hits = new Collider[16];
 
-    private void Awake() => input = new InputSystem_Actions();
+    [Tooltip("피격 경직 중 공격을 막습니다. 비워두면 같은 오브젝트에서 찾습니다.")]
+    [SerializeField] private HitReaction hitReaction;
+
+
+    private void Awake()
+    {
+        input = new InputSystem_Actions();
+        if (hitReaction == null) hitReaction = GetComponent<HitReaction>();
+    }
 
     private void OnEnable() => input.Enable();
     private void OnDisable() => input.Disable();
@@ -28,9 +36,15 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
+        // 상점·인벤토리가 열려 있으면 조작을 받지 않습니다.
+        if (UIState.IsModalOpen) return;
 
+        // UI 위를 클릭한 경우는 공격이 아닙니다.
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
+
+        // 맞는 도중에는 공격할 수 없습니다.
+        if (hitReaction != null && hitReaction.IsStunned) return;
 
         if (!input.Player.Attack.WasPressedThisFrame()) return;
         if (Time.time - lastAttackTime < attackCooldown) return;
@@ -38,7 +52,6 @@ public class PlayerCombat : MonoBehaviour
         lastAttackTime = Time.time;
         PerformAttack();
     }
-
     private void PerformAttack()
     {
         if (animator != null) animator.SetTrigger("Attack");
@@ -46,7 +59,7 @@ public class PlayerCombat : MonoBehaviour
         int count = Physics.OverlapSphereNonAlloc(
             transform.position, attackRange, hits, targetLayer);
 
-        Debug.Log($"[공격] 감지된 콜라이더 {count}개");          // ← 추가
+      
 
         int hitCount = 0;
 
@@ -60,7 +73,7 @@ public class PlayerCombat : MonoBehaviour
             float dot = Vector3.Dot(transform.forward, toTarget.normalized);
             bool hasHealth = hits[i].TryGetComponent(out Health targetHealth);
 
-            Debug.Log($"  → {hits[i].name} / 정면성 {dot:F2} / Health {(hasHealth ? "있음" : "없음")}");  // ← 추가
+         
 
             if (dot < minFacingDot) continue;
             if (!hasHealth) continue;
