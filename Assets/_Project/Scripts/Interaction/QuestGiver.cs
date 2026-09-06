@@ -9,14 +9,18 @@ public class QuestGiver : Interactable
     [Tooltip("이 NPC가 주는 퀘스트들. 위에서부터 순서대로 진행됩니다.")]
     [SerializeField] private QuestData[] quests;
 
-    [SerializeField] private string speakerName = "마을 사람";
-
-    [Tooltip("이 NPC 자체가 대화형 목표의 대상일 경우 지정합니다. 없으면 비워둡니다.")]
+    [Tooltip("이 NPC의 정보. 이름과 대화 조건을 여기서 가져옵니다.")]
     [SerializeField] private NpcData npcData;
+
+    
 
     [Tooltip("줄 퀘스트가 더 남아 있지 않을 때의 대사.")]
     [TextArea]
-    [SerializeField] private string idleText = "오늘은 별일 없네.";
+    [SerializeField] private string idleText = "";
+
+
+    public override string DisplayName =>
+       npcData != null ? npcData.displayName : base.DisplayName;
 
     public override void Interact(GameObject interactor)
     {
@@ -35,7 +39,7 @@ public class QuestGiver : Interactable
         if (npcData != null && npcData.requiredQuest != null &&
             log.GetState(npcData.requiredQuest) == QuestState.NotStarted)
         {
-            DialogueEvents.Request(speakerName, npcData.lockedLine);
+            DialogueEvents.Request(DisplayName, npcData.lockedLine);
             return;
         }
 
@@ -47,21 +51,21 @@ public class QuestGiver : Interactable
         if (quest == null)
         {
             if (npcData != null) progress.Flags.MarkTalked(npcData);
-            DialogueEvents.Request(speakerName, idleText);
+            DialogueEvents.Request(DisplayName, idleText);
             return;
         }
 
         if (!log.IsUnlocked(quest))
         {
             // 잠금 대사만 들려준 경우는 '만났다'로 치지 않습니다.
-            DialogueEvents.Request(speakerName, quest.lockedText);
+            DialogueEvents.Request(DisplayName, quest.lockedText);
             return;
         }
         switch (log.GetState(quest))
         {
             case QuestState.NotStarted:
                 DialogueEvents.RequestChoice(
-                    speakerName,
+                    DisplayName,
                     quest.acceptText,
                     onAccept: () =>
                     {
@@ -70,7 +74,7 @@ public class QuestGiver : Interactable
                     },
                     onDecline: () =>
                     {
-                        DialogueEvents.Request(speakerName, quest.declineText);
+                        DialogueEvents.Request(DisplayName, quest.declineText);
                     });
                 break;
 
@@ -91,7 +95,7 @@ public class QuestGiver : Interactable
                     Debug.Log($"[QuestReward] 지급 후 골드: {progress.Wallet.Gold}");
 
                     QuestEvents.Completed(quest);
-                    DialogueEvents.Request(speakerName, quest.completeText);
+                    DialogueEvents.Request(DisplayName, quest.completeText);
                 }
                 else
                 {
@@ -99,7 +103,7 @@ public class QuestGiver : Interactable
                         ? $"{quest.progressText} ({quest.objective.GetProgressText(ctx)})"
                         : quest.progressText;
 
-                    DialogueEvents.Request(speakerName, line);
+                    DialogueEvents.Request(DisplayName, line);
                 }
                 break;
         }

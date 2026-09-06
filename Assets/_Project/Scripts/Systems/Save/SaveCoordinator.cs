@@ -130,6 +130,9 @@ public class SaveCoordinator : MonoBehaviour
             data.talkedNpcIds.Add(npc.id);
         }
 
+        foreach (string pickupId in progress.Pickups.Collected)      // ¡ç Ãß°¡
+            data.collectedPickupIds.Add(pickupId);
+
         return data;
     }
 
@@ -166,6 +169,7 @@ public class SaveCoordinator : MonoBehaviour
         progress.Kills.Restore(ToPairs(data.kills, database.GetEnemy));
         progress.Log.Restore(ToQuestPairs(data.quests));
         progress.Flags.Restore(ToNpcs(data.talkedNpcIds));
+        progress.Pickups.Restore(data.collectedPickupIds);
     }
 
     private void RestorePosition(SaveData data)

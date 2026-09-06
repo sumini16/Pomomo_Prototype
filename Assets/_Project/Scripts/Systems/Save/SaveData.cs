@@ -43,4 +43,5 @@ public class SaveData
     public List<CountEntry> kills = new List<CountEntry>();
     public List<QuestEntry> quests = new List<QuestEntry>();
     public List<string> talkedNpcIds = new List<string>();
+    public List<string> collectedPickupIds = new List<string>();
 }

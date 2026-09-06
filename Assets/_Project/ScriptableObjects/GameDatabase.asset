@@ -28,3 +28,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1b4d685a7f4b4c849879d9ed18940ba9, type: 2}
   npcs:
   - {fileID: 11400000, guid: 9dfe76df6bcd0324bb71696666b4d425, type: 2}
+  - {fileID: 11400000, guid: ec2a92a060a332347bf135928eed4af0, type: 2}
+  - {fileID: 11400000, guid: 75e6e9a427b835644b9edaef5affbeba, type: 2}
+  - {fileID: 11400000, guid: 47942bae607e2364eb05a929032c6c23, type: 2}
