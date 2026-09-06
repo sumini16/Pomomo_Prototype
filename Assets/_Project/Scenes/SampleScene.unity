@@ -2550,8 +2550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476f374870ddfa649862662e5ca04a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  displayName: "\uBCA0\uB9AC"
-  id: 
+  displayName: 
+  id: berry_2
   itemData: {fileID: 11400000, guid: e3f6ff6b7f772464fbcfac0c1af414c6, type: 2}
 --- !u!1 &309480817
 GameObject:
@@ -8383,8 +8383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476f374870ddfa649862662e5ca04a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  displayName: "\uBCA0\uB9AC"
-  id: 
+  displayName: 
+  id: berry_5
   itemData: {fileID: 11400000, guid: e3f6ff6b7f772464fbcfac0c1af414c6, type: 2}
 --- !u!1 &878930088
 GameObject:
@@ -12609,8 +12609,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476f374870ddfa649862662e5ca04a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  displayName: "\uBCA0\uB9AC"
-  id: 
+  displayName: 
+  id: berry_4
   itemData: {fileID: 11400000, guid: e3f6ff6b7f772464fbcfac0c1af414c6, type: 2}
 --- !u!1 &1199629374
 GameObject:
@@ -18962,8 +18962,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476f374870ddfa649862662e5ca04a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  displayName: "\uB538\uAE30"
-  id: 
+  displayName: 
+  id: berry_3
   itemData: {fileID: 11400000, guid: e3f6ff6b7f772464fbcfac0c1af414c6, type: 2}
 --- !u!1 &1989942179 stripped
 GameObject:
