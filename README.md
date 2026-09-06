@@ -12,7 +12,16 @@
 **환경** Unity 6 (6000.5.9f1) · URP 17.5 · Input System 1.20 · Cinemachine 3.1
 **플레이 영상** https://www.youtube.com/watch?v=39XX1OEO-W4
 
----
+핵심 구현
+
+• 이벤트 기반 시스템 간 통신
+• ScriptableObject 기반 데이터/런타임 상태 분리
+• 다형성 기반 Interaction
+• 재사용 가능한 StateMachine
+• Dictionary 기반 Inventory
+• 상태 조회 기반 Quest Objective
+• JSON Save/Load 및 GameDatabase
+• 실제 디버깅 사례 11건
 
 ## 플레이 흐름
 
@@ -295,7 +304,7 @@ int count = inventory.GetCount(quest.targetItem);   // 묻는 시점의 사실�
 퀘스트 정보를 `QuestData`(ScriptableObject)로 뺐지만
 진행 상태(`QuestState`)는 거기 두지 않았습니다.
 
-ScriptableObject는 에셋 파일이라 런타임 변경이 파일에 기록됩니다.
+ScriptableObject에 런타임 상태를 저장하면 에셋 자체의 데이터와 런타임 상태가 섞이고, 같은 에셋을 참조하는 객체 사이에서 상태가 공유될 수 있습니다.
 에디터에서는 플레이를 멈춰도 값이 안 돌아가서, 다음 실행이 이미 완료된 상태로 시작됩니다.
 같은 에셋을 쓰는 인스턴스가 여럿이면 상태를 공유해버리기도 합니다.
 
@@ -532,7 +541,7 @@ public enum TradeResult { Success, NotEnoughGold, NoItem, NotTradable, Invalid }
 
 ### 2.20 세이브: Dictionary를 그대로 저장할 수 없다는 것
 
-저장할 상태가 여섯 군데에 흩어져 있었습니다.
+저장할 상태가 일곱 군데에 흩어져 있었습니다.
 인벤토리, 퀘스트 로그, 처치 집계, 지갑, 대화 플래그, 주운 아이템 목록.
 한 클래스가 이걸 전부 아는 형태는 피하고 싶었습니다.
 
