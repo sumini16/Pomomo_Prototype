@@ -1,10 +1,10 @@
-using System;
+ï»¿using System;
 using System.IO;
 using UnityEngine;
 
 /// <summary>
-/// ÀúÀå ÆÄÀÏÀÇ ÀĞ±â ¾²±â¸¸ ´ã´çÇÕ´Ï´Ù.
-/// ¹«¾ùÀ» ´ãÀ»Áö´Â SaveCoordinator°¡ Á¤ÇÏ°í, ÀÌ Å¬·¡½º´Â ±× °á°ú¸¦ ÆÄÀÏ·Î ¿Å±â±â¸¸ ÇÕ´Ï´Ù.
+/// ì €ì¥ íŒŒì¼ì˜ ì½ê¸° ì“°ê¸°ë§Œ ë‹´ë‹¹í•©ë‹ˆë‹¤.
+/// ë¬´ì—‡ì„ ë‹´ì„ì§€ëŠ” SaveCoordinatorê°€ ì •í•˜ê³ , ì´ í´ë˜ìŠ¤ëŠ” ê·¸ ê²°ê³¼ë¥¼ íŒŒì¼ë¡œ ì˜®ê¸°ê¸°ë§Œ í•©ë‹ˆë‹¤.
 /// </summary>
 public static class SaveSystem
 {
@@ -24,13 +24,13 @@ public static class SaveSystem
         try
         {
             File.WriteAllText(FilePath, JsonUtility.ToJson(data, true));
-            Debug.Log($"[SaveSystem] ÀúÀå ¿Ï·á  {FilePath}");
+            Debug.Log($"[SaveSystem] ì €ì¥ ì™„ë£Œ  {FilePath}");
             return true;
         }
         catch (Exception e)
         {
-            // µğ½ºÅ©°¡ °¡µæ Ã¡°Å³ª ±ÇÇÑÀÌ ¾øÀ» ¼ö ÀÖ½À´Ï´Ù. ÀúÀå ½ÇÆĞ°¡ °ÔÀÓÀ» ¸ØÃßÁö´Â ¾Ê°Ô ÇÕ´Ï´Ù.
-            Debug.LogError($"[SaveSystem] ÀúÀå ½ÇÆĞ: {e.Message}");
+            // ë””ìŠ¤í¬ê°€ ê°€ë“ ì°¼ê±°ë‚˜ ê¶Œí•œì´ ì—†ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤. ì €ì¥ ì‹¤íŒ¨ê°€ ê²Œì„ì„ ë©ˆì¶”ì§€ëŠ” ì•Šê²Œ í•©ë‹ˆë‹¤.
+            Debug.LogError($"[SaveSystem] ì €ì¥ ì‹¤íŒ¨: {e.Message}");
             return false;
         }
     }
@@ -39,7 +39,7 @@ public static class SaveSystem
     {
         if (!HasSave)
         {
-            Debug.Log("[SaveSystem] ÀúÀå ÆÄÀÏÀÌ ¾ø½À´Ï´Ù.");
+            Debug.Log("[SaveSystem] ì €ì¥ íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤.");
             return null;
         }
 
@@ -49,15 +49,15 @@ public static class SaveSystem
 
             if (data == null)
             {
-                Debug.LogError("[SaveSystem] ÀúÀå ÆÄÀÏÀ» ÇØ¼®ÇÏÁö ¸øÇß½À´Ï´Ù.");
+                Debug.LogError("[SaveSystem] ì €ì¥ íŒŒì¼ì„ í•´ì„í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
                 return null;
             }
 
-            // Çü½ÄÀÌ ¹Ù²ï ¿¾ ÆÄÀÏÀ» ±×´ë·Î ÀĞÀ¸¸é ÇÊµå°¡ ¾î±ß³­ Ã¤ º¹¿øµË´Ï´Ù.
-            // Àß¸ø º¹¿øÇÏ´À´Ï ºÒ·¯¿ÀÁö ¾Ê´Â ÂÊÀ» ÅÃÇß½À´Ï´Ù.
+            // í˜•ì‹ì´ ë°”ë€ ì˜› íŒŒì¼ì„ ê·¸ëŒ€ë¡œ ì½ìœ¼ë©´ í•„ë“œê°€ ì–´ê¸‹ë‚œ ì±„ ë³µì›ë©ë‹ˆë‹¤.
+            // ì˜ëª» ë³µì›í•˜ëŠë‹ˆ ë¶ˆëŸ¬ì˜¤ì§€ ì•ŠëŠ” ìª½ì„ íƒí–ˆìŠµë‹ˆë‹¤.
             if (data.version != CurrentVersion)
             {
-                Debug.LogWarning($"[SaveSystem] ÀúÀå Çü½ÄÀÌ ´Ù¸¨´Ï´Ù (ÆÄÀÏ {data.version} / ÇöÀç {CurrentVersion}). ºÒ·¯¿ÀÁö ¾Ê½À´Ï´Ù.");
+                Debug.LogWarning($"[SaveSystem] ì €ì¥ í˜•ì‹ì´ ë‹¤ë¦…ë‹ˆë‹¤ (íŒŒì¼ {data.version} / í˜„ì¬ {CurrentVersion}). ë¶ˆëŸ¬ì˜¤ì§€ ì•ŠìŠµë‹ˆë‹¤.");
                 return null;
             }
 
@@ -65,7 +65,7 @@ public static class SaveSystem
         }
         catch (Exception e)
         {
-            Debug.LogError($"[SaveSystem] ºÒ·¯¿À±â ½ÇÆĞ: {e.Message}");
+            Debug.LogError($"[SaveSystem] ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨: {e.Message}");
             return null;
         }
     }
@@ -77,11 +77,11 @@ public static class SaveSystem
         try
         {
             File.Delete(FilePath);
-            Debug.Log("[SaveSystem] ÀúÀå ÆÄÀÏÀ» »èÁ¦Çß½À´Ï´Ù.");
+            Debug.Log("[SaveSystem] ì €ì¥ íŒŒì¼ì„ ì‚­ì œí–ˆìŠµë‹ˆë‹¤.");
         }
         catch (Exception e)
         {
-            Debug.LogError($"[SaveSystem] »èÁ¦ ½ÇÆĞ: {e.Message}");
+            Debug.LogError($"[SaveSystem] ì‚­ì œ ì‹¤íŒ¨: {e.Message}");
         }
     }
 }

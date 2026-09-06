@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-/// <summary>°Å·¡ °á°ú. bool ´ë½Å »çÀ¯¸¦ ÇÔ²² µ¹·ÁÁÖ¾î UI°¡ ¾È³» ¹®±¸¸¦ °í¸¦ ¼ö ÀÖ°Ô ÇÕ´Ï´Ù.</summary>
+/// <summary>ê±°ë˜ ê²°ê³¼. bool ëŒ€ì‹  ì‚¬ìœ ë¥¼ í•¨ê»˜ ëŒë ¤ì£¼ì–´ UIê°€ ì•ˆë‚´ ë¬¸êµ¬ë¥¼ ê³ ë¥¼ ìˆ˜ ìˆê²Œ í•©ë‹ˆë‹¤.</summary>
 public enum TradeResult
 {
     Success,
@@ -24,7 +24,7 @@ public class Shop : MonoBehaviour
         if (!itemsForSale.Contains(item)) return TradeResult.NotTradable;
         if (item.buyPrice <= 0) return TradeResult.NotTradable;
 
-        // ÀÜ¾× °Ë»ç¿Í Â÷°¨À» Wallet ¾È¿¡ ÇÔ²² µÎ¾î µÑÀÌ °¥¶óÁöÁö ¾Ê°Ô ÇÕ´Ï´Ù.
+        // ì”ì•¡ ê²€ì‚¬ì™€ ì°¨ê°ì„ Wallet ì•ˆì— í•¨ê»˜ ë‘ì–´ ë‘˜ì´ ê°ˆë¼ì§€ì§€ ì•Šê²Œ í•©ë‹ˆë‹¤.
         if (!progress.Wallet.TrySpend(item.buyPrice)) return TradeResult.NotEnoughGold;
 
         progress.Inventory.Add(item);

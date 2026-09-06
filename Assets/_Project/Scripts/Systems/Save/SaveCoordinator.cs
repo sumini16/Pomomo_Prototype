@@ -1,29 +1,29 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// ÀúÀå ´ë»óÀ» ¸ğÀ¸°í µÇµ¹¸®´Â °÷ÀÔ´Ï´Ù.
+/// ì €ì¥ ëŒ€ìƒì„ ëª¨ìœ¼ê³  ë˜ëŒë¦¬ëŠ” ê³³ì…ë‹ˆë‹¤.
 ///
-/// °¢ ½Ã½ºÅÛÀÌ ½º½º·Î ÆÄÀÏÀ» ÀĞ°í ¾²¸é ÀúÀå ½ÃÁ¡ÀÌ Èğ¾îÁ® ¼ø¼­¸¦ ÅëÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù.
-/// ¹İ´ë·Î ÀÌ Å¬·¡½º°¡ °¢ ½Ã½ºÅÛÀÇ ³»ºÎ ÀÚ·á±¸Á¶¸¦ Á÷Á¢ °íÄ¡¸é °áÇÕµµ°¡ ¿Ã¶ó°©´Ï´Ù.
-/// ±×·¡¼­ °¢ ½Ã½ºÅÛÀº ÀÚ±â »óÅÂ¸¦ µÇµ¹¸®´Â ¸Ş¼­µå(Restore)¸¸ °®°í,
-/// ÀÌ Å¬·¡½º´Â ±×°ÍÀ» ¸ğ¾Æ SaveData·Î Á¶¸³ÇÏ´Â ¿ªÇÒ¸¸ ¸Ã½À´Ï´Ù.
+/// ê° ì‹œìŠ¤í…œì´ ìŠ¤ìŠ¤ë¡œ íŒŒì¼ì„ ì½ê³  ì“°ë©´ ì €ì¥ ì‹œì ì´ í©ì–´ì ¸ ìˆœì„œë¥¼ í†µì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
+/// ë°˜ëŒ€ë¡œ ì´ í´ë˜ìŠ¤ê°€ ê° ì‹œìŠ¤í…œì˜ ë‚´ë¶€ ìë£Œêµ¬ì¡°ë¥¼ ì§ì ‘ ê³ ì¹˜ë©´ ê²°í•©ë„ê°€ ì˜¬ë¼ê°‘ë‹ˆë‹¤.
+/// ê·¸ë˜ì„œ ê° ì‹œìŠ¤í…œì€ ìê¸° ìƒíƒœë¥¼ ë˜ëŒë¦¬ëŠ” ë©”ì„œë“œ(Restore)ë§Œ ê°–ê³ ,
+/// ì´ í´ë˜ìŠ¤ëŠ” ê·¸ê²ƒì„ ëª¨ì•„ SaveDataë¡œ ì¡°ë¦½í•˜ëŠ” ì—­í• ë§Œ ë§¡ìŠµë‹ˆë‹¤.
 /// </summary>
 public class SaveCoordinator : MonoBehaviour
 {
-    [Header("ÂüÁ¶")]
+    [Header("ì°¸ì¡°")]
     [SerializeField] private PlayerProgress progress;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private GameDatabase database;
 
-    [Header("ÀÚµ¿ ÀúÀå")]
-    [Tooltip("Äù½ºÆ® »óÅÂ°¡ ¹Ù²ğ ¶§¸¶´Ù ÀúÀåÇÕ´Ï´Ù.")]
+    [Header("ìë™ ì €ì¥")]
+    [Tooltip("í€˜ìŠ¤íŠ¸ ìƒíƒœê°€ ë°”ë€” ë•Œë§ˆë‹¤ ì €ì¥í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool autoSaveOnQuestChange = true;
 
-    [Header("ºÒ·¯¿À±â")]
-    [Tooltip("¾ÀÀÌ ½ÃÀÛµÉ ¶§ ÀúÀå ÆÄÀÏÀÌ ÀÖÀ¸¸é ÀÚµ¿À¸·Î º¹¿øÇÕ´Ï´Ù.")]
+    [Header("ë¶ˆëŸ¬ì˜¤ê¸°")]
+    [Tooltip("ì”¬ì´ ì‹œì‘ë  ë•Œ ì €ì¥ íŒŒì¼ì´ ìˆìœ¼ë©´ ìë™ìœ¼ë¡œ ë³µì›í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool loadOnStart;
 
     private CharacterController playerController;
@@ -35,7 +35,7 @@ public class SaveCoordinator : MonoBehaviour
 
         if (progress == null)
         {
-            Debug.LogError("[SaveCoordinator] PlayerProgress¸¦ Ã£Áö ¸øÇß½À´Ï´Ù.", this);
+            Debug.LogError("[SaveCoordinator] PlayerProgressë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.", this);
             return;
         }
 
@@ -43,7 +43,7 @@ public class SaveCoordinator : MonoBehaviour
         playerController = playerTransform.GetComponent<CharacterController>();
 
         if (database == null)
-            Debug.LogError("[SaveCoordinator] GameDatabase°¡ ºñ¾î ÀÖ½À´Ï´Ù. ºÒ·¯¿À±â°¡ µ¿ÀÛÇÏÁö ¾Ê½À´Ï´Ù.", this);
+            Debug.LogError("[SaveCoordinator] GameDatabaseê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤. ë¶ˆëŸ¬ì˜¤ê¸°ê°€ ë™ì‘í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.", this);
     }
 
     private void OnEnable()
@@ -65,8 +65,8 @@ public class SaveCoordinator : MonoBehaviour
 
     private void HandleQuestStateChanged()
     {
-        // º¹¿ø Áß¿¡´Â »óÅÂ°¡ ¿¬´Ş¾Æ ¹Ù²î¸ç ÀÌº¥Æ®°¡ ¿©·¯ ¹ø ¹ß»ıÇÕ´Ï´Ù.
-        // ±×¶§¸¶´Ù ÀúÀåÇÏ¸é ¹æ±İ ºÒ·¯¿Â ³»¿ëÀ» ´Ù½Ã ¾²´Â ³¶ºñ°¡ »ı±é´Ï´Ù.
+        // ë³µì› ì¤‘ì—ëŠ” ìƒíƒœê°€ ì—°ë‹¬ì•„ ë°”ë€Œë©° ì´ë²¤íŠ¸ê°€ ì—¬ëŸ¬ ë²ˆ ë°œìƒí•©ë‹ˆë‹¤.
+        // ê·¸ë•Œë§ˆë‹¤ ì €ì¥í•˜ë©´ ë°©ê¸ˆ ë¶ˆëŸ¬ì˜¨ ë‚´ìš©ì„ ë‹¤ì‹œ ì“°ëŠ” ë‚­ë¹„ê°€ ìƒê¹ë‹ˆë‹¤.
         if (restoring) return;
 
         Save();
@@ -80,7 +80,7 @@ public class SaveCoordinator : MonoBehaviour
         if (Keyboard.current.f9Key.wasPressedThisFrame) Load();
     }
 
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡ ÀúÀå
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ ì €ì¥
 
     public void Save()
     {
@@ -130,13 +130,13 @@ public class SaveCoordinator : MonoBehaviour
             data.talkedNpcIds.Add(npc.id);
         }
 
-        foreach (string pickupId in progress.Pickups.Collected)      // ¡ç Ãß°¡
+        foreach (string pickupId in progress.Pickups.Collected)      // â† ì¶”ê°€
             data.collectedPickupIds.Add(pickupId);
 
         return data;
     }
 
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡ ºÒ·¯¿À±â
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ ë¶ˆëŸ¬ì˜¤ê¸°
 
     public void Load()
     {
@@ -145,7 +145,7 @@ public class SaveCoordinator : MonoBehaviour
 
         if (database == null)
         {
-            Debug.LogError("[SaveCoordinator] GameDatabase°¡ ¾ø¾î º¹¿øÇÒ ¼ö ¾ø½À´Ï´Ù.", this);
+            Debug.LogError("[SaveCoordinator] GameDatabaseê°€ ì—†ì–´ ë³µì›í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", this);
             return;
         }
 
@@ -153,7 +153,7 @@ public class SaveCoordinator : MonoBehaviour
         Restore(data);
         restoring = false;
 
-        Debug.Log("[SaveCoordinator] ºÒ·¯¿À±â ¿Ï·á");
+        Debug.Log("[SaveCoordinator] ë¶ˆëŸ¬ì˜¤ê¸° ì™„ë£Œ");
     }
 
     private void Restore(SaveData data)
@@ -176,8 +176,8 @@ public class SaveCoordinator : MonoBehaviour
     {
         if (playerTransform == null) return;
 
-        // CharacterController´Â ÀÚ±â À§Ä¡¸¦ ½º½º·Î °ü¸®ÇÏ¹Ç·Î,
-        // ÄÑÁø »óÅÂ¿¡¼­ transformÀ» ¿Å±â¸é ´ÙÀ½ ÇÁ·¹ÀÓ¿¡ µÇµ¹·ÁÁı´Ï´Ù.
+        // CharacterControllerëŠ” ìê¸° ìœ„ì¹˜ë¥¼ ìŠ¤ìŠ¤ë¡œ ê´€ë¦¬í•˜ë¯€ë¡œ,
+        // ì¼œì§„ ìƒíƒœì—ì„œ transformì„ ì˜®ê¸°ë©´ ë‹¤ìŒ í”„ë ˆì„ì— ë˜ëŒë ¤ì§‘ë‹ˆë‹¤.
         bool wasEnabled = playerController != null && playerController.enabled;
         if (wasEnabled) playerController.enabled = false;
 
@@ -187,7 +187,7 @@ public class SaveCoordinator : MonoBehaviour
         if (wasEnabled) playerController.enabled = true;
     }
 
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡ id ¡æ ¿¡¼Â
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ id â†’ ì—ì…‹
 
     private static List<KeyValuePair<T, int>> ToPairs<T>(
         List<SaveData.CountEntry> entries, Func<string, T> resolve) where T : ScriptableObject
@@ -198,10 +198,10 @@ public class SaveCoordinator : MonoBehaviour
         {
             T asset = resolve(entry.id);
 
-            // ¿¡¼ÂÀ» ¸ø Ã£À¸¸é ±× Ç×¸ñ¸¸ °Ç³Ê¶İ´Ï´Ù. ³ª¸ÓÁö´Â Á¤»ó º¹¿øµË´Ï´Ù.
+            // ì—ì…‹ì„ ëª» ì°¾ìœ¼ë©´ ê·¸ í•­ëª©ë§Œ ê±´ë„ˆëœë‹ˆë‹¤. ë‚˜ë¨¸ì§€ëŠ” ì •ìƒ ë³µì›ë©ë‹ˆë‹¤.
             if (asset == null)
             {
-                Debug.LogWarning($"[SaveCoordinator] id '{entry.id}'¿¡ ÇØ´çÇÏ´Â ¿¡¼ÂÀ» Ã£Áö ¸øÇß½À´Ï´Ù. GameDatabase µî·ÏÀ» È®ÀÎÇÏ¼¼¿ä.");
+                Debug.LogWarning($"[SaveCoordinator] id '{entry.id}'ì— í•´ë‹¹í•˜ëŠ” ì—ì…‹ì„ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤. GameDatabase ë“±ë¡ì„ í™•ì¸í•˜ì„¸ìš”.");
                 continue;
             }
 
@@ -221,13 +221,13 @@ public class SaveCoordinator : MonoBehaviour
 
             if (quest == null)
             {
-                Debug.LogWarning($"[SaveCoordinator] Äù½ºÆ® id '{entry.id}'¸¦ Ã£Áö ¸øÇß½À´Ï´Ù.");
+                Debug.LogWarning($"[SaveCoordinator] í€˜ìŠ¤íŠ¸ id '{entry.id}'ë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
                 continue;
             }
 
             if (!Enum.TryParse(entry.state, out QuestState state))
             {
-                Debug.LogWarning($"[SaveCoordinator] ¾Ë ¼ö ¾ø´Â Äù½ºÆ® »óÅÂ '{entry.state}'  °Ç³Ê¶İ´Ï´Ù.");
+                Debug.LogWarning($"[SaveCoordinator] ì•Œ ìˆ˜ ì—†ëŠ” í€˜ìŠ¤íŠ¸ ìƒíƒœ '{entry.state}'  ê±´ë„ˆëœë‹ˆë‹¤.");
                 continue;
             }
 
@@ -247,7 +247,7 @@ public class SaveCoordinator : MonoBehaviour
 
             if (npc == null)
             {
-                Debug.LogWarning($"[SaveCoordinator] NPC id '{id}'¸¦ Ã£Áö ¸øÇß½À´Ï´Ù.");
+                Debug.LogWarning($"[SaveCoordinator] NPC id '{id}'ë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
                 continue;
             }
 

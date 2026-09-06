@@ -1,38 +1,38 @@
-using System.Collections;
+ï»¿using System.Collections;
 using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// ¸¶Áö¸· Äù½ºÆ®¸¦ ¼ö¶ôÇÏ¸é ¸¶¹«¸® ¹®±¸¸¦ ¶ç¿ó´Ï´Ù.
-/// ÇÁ·ÎÅäÅ¸ÀÔÀÇ ³¡À» ¾Ë¸®´Â ÀåÄ¡¶ó °ÔÀÓ ·ÎÁ÷Àº °Çµå¸®Áö ¾Ê°í, Ç¥½Ã¿Í ÀÔ·Â Â÷´Ü¸¸ ÇÕ´Ï´Ù.
+/// ë§ˆì§€ë§‰ í€˜ìŠ¤íŠ¸ë¥¼ ìˆ˜ë½í•˜ë©´ ë§ˆë¬´ë¦¬ ë¬¸êµ¬ë¥¼ ë„ì›ë‹ˆë‹¤.
+/// í”„ë¡œí† íƒ€ì…ì˜ ëì„ ì•Œë¦¬ëŠ” ì¥ì¹˜ë¼ ê²Œì„ ë¡œì§ì€ ê±´ë“œë¦¬ì§€ ì•Šê³ , í‘œì‹œì™€ ì…ë ¥ ì°¨ë‹¨ë§Œ í•©ë‹ˆë‹¤.
 /// </summary>
 public class EndingUI : MonoBehaviour
 {
     [SerializeField] private CanvasGroup group;
     [SerializeField] private TextMeshProUGUI messageText;
 
-    [Tooltip("ÀÌ Äù½ºÆ®¸¦ ¼ö¶ôÇÏ¸é ¿£µùÀ» ¶ç¿ó´Ï´Ù. ¸ñÇ¥°¡ ¾ø¾î ¿Ï·áµÇÁö ¾Ê´Â Äù½ºÆ®¶ó ¼ö¶ô ½ÃÁ¡À» ¾¹´Ï´Ù.")]
+    [Tooltip("ì´ í€˜ìŠ¤íŠ¸ë¥¼ ìˆ˜ë½í•˜ë©´ ì—”ë”©ì„ ë„ì›ë‹ˆë‹¤. ëª©í‘œê°€ ì—†ì–´ ì™„ë£Œë˜ì§€ ì•ŠëŠ” í€˜ìŠ¤íŠ¸ë¼ ìˆ˜ë½ ì‹œì ì„ ì”ë‹ˆë‹¤.")]
     [SerializeField] private QuestData finalQuest;
 
-    [Tooltip("¼ö¶ô ´ë»ç¸¦ ÀĞÀ» ½Ã°£À» ÁØ µÚ ½ÃÀÛÇÕ´Ï´Ù.")]
+    [Tooltip("ìˆ˜ë½ ëŒ€ì‚¬ë¥¼ ì½ì„ ì‹œê°„ì„ ì¤€ ë’¤ ì‹œì‘í•©ë‹ˆë‹¤.")]
     [SerializeField] private float delay = 2f;
     [SerializeField] private float fadeDuration = 1.5f;
 
     [TextArea]
-    [SerializeField] private string message = "¿©±â±îÁö°¡ ÇÁ·ÎÅäÅ¸ÀÔÀÔ´Ï´Ù.";
+    [SerializeField] private string message = "ì—¬ê¸°ê¹Œì§€ê°€ í”„ë¡œí† íƒ€ì…ì…ë‹ˆë‹¤.";
 
     private void Awake()
     {
         if (group == null)
         {
-            Debug.LogError("[EndingUI] CanvasGroupÀÌ ºñ¾î ÀÖ½À´Ï´Ù.", this);
+            Debug.LogError("[EndingUI] CanvasGroupì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.", this);
             enabled = false;
             return;
         }
 
-        // SetActive·Î ²ô¸é ÀÌ ½ºÅ©¸³Æ®°¡ °°Àº ¿ÀºêÁ§Æ®¿¡ ÀÖ¾î ÇÔ²² ºñÈ°¼ºÈ­µÇ°í,
-        // OnDisableÀÌ ±¸µ¶À» ÇØÁ¦ÇØ ¼ö¶ô ÀÌº¥Æ®¸¦ ¿µ¿µ ¹ŞÁö ¸øÇÕ´Ï´Ù.
-        // ¿ÀºêÁ§Æ®´Â ÄÑµĞ Ã¤ Åõ¸íÇÏ°Ô¸¸ ¸¸µì´Ï´Ù.
+        // SetActiveë¡œ ë„ë©´ ì´ ìŠ¤í¬ë¦½íŠ¸ê°€ ê°™ì€ ì˜¤ë¸Œì íŠ¸ì— ìˆì–´ í•¨ê»˜ ë¹„í™œì„±í™”ë˜ê³ ,
+        // OnDisableì´ êµ¬ë…ì„ í•´ì œí•´ ìˆ˜ë½ ì´ë²¤íŠ¸ë¥¼ ì˜ì˜ ë°›ì§€ ëª»í•©ë‹ˆë‹¤.
+        // ì˜¤ë¸Œì íŠ¸ëŠ” ì¼œë‘” ì±„ íˆ¬ëª…í•˜ê²Œë§Œ ë§Œë“­ë‹ˆë‹¤.
         Hide();
     }
 
@@ -69,7 +69,7 @@ public class EndingUI : MonoBehaviour
 
         group.alpha = 1f;
 
-        // ¿£µù ÀÌÈÄ¿¡´Â Á¶ÀÛÀ» ¹ŞÁö ¾Ê½À´Ï´Ù.
+        // ì—”ë”© ì´í›„ì—ëŠ” ì¡°ì‘ì„ ë°›ì§€ ì•ŠìŠµë‹ˆë‹¤.
         UIState.SetModal(true);
     }
 }

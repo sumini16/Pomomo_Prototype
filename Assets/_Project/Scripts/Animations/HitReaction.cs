@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// Ã¼·ÂÀÌ ÁÙ¾îµé ¶§ ÇÇ°İ ¸ğ¼ÇÀ» Àç»ıÇÏ°í, ÂªÀº °æÁ÷ ½Ã°£À» ¸¸µì´Ï´Ù.
-/// Health¸¸ ÂüÁ¶ÇÏ¹Ç·Î ÇÃ·¹ÀÌ¾î¿Í Àû ¸ğµÎ¿¡ ºÙ½À´Ï´Ù.
+/// ì²´ë ¥ì´ ì¤„ì–´ë“¤ ë•Œ í”¼ê²© ëª¨ì…˜ì„ ì¬ìƒí•˜ê³ , ì§§ì€ ê²½ì§ ì‹œê°„ì„ ë§Œë“­ë‹ˆë‹¤.
+/// Healthë§Œ ì°¸ì¡°í•˜ë¯€ë¡œ í”Œë ˆì´ì–´ì™€ ì  ëª¨ë‘ì— ë¶™ìŠµë‹ˆë‹¤.
 /// </summary>
 [RequireComponent(typeof(Health))]
 public class HitReaction : MonoBehaviour
@@ -10,14 +10,14 @@ public class HitReaction : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private string hitTrigger = "Hit";
 
-    [Tooltip("ÇÇ°İ ÈÄ ÀÌ ½Ã°£ µ¿¾È °ø°İÇÒ ¼ö ¾ø½À´Ï´Ù.")]
+    [Tooltip("í”¼ê²© í›„ ì´ ì‹œê°„ ë™ì•ˆ ê³µê²©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.")]
     [SerializeField] private float stunDuration = 0.4f;
 
     private Health health;
     private int lastHealth = -1;
     private float stunUntil;
 
-    /// <summary>ÇÇ°İ °æÁ÷ ÁßÀÎ°¡. °ø°İ ÀÔ·ÂÀ» ¸·´Â ÂÊ¿¡¼­ ÂüÁ¶ÇÕ´Ï´Ù.</summary>
+    /// <summary>í”¼ê²© ê²½ì§ ì¤‘ì¸ê°€. ê³µê²© ì…ë ¥ì„ ë§‰ëŠ” ìª½ì—ì„œ ì°¸ì¡°í•©ë‹ˆë‹¤.</summary>
     public bool IsStunned => Time.time < stunUntil;
 
     private void Awake()
@@ -28,8 +28,8 @@ public class HitReaction : MonoBehaviour
 
     private void OnEnable()
     {
-        // ±¸µ¶ Àü¿¡ ÀÌ¹Ì Áö³ª°£ º¯°æ(SetMaxHealth µî)À» ³õÄ¡Áö ¾Êµµ·Ï ÇöÀç°ª¿¡¼­ ½ÃÀÛÇÕ´Ï´Ù.
-        // ÀÌº¥Æ®°¡ Ã¤¿öÁÖ±â¸¦ ±â´Ù¸®¸é Ã¹ ÇÇ°İÀÌ ÅëÂ°·Î ¹«½ÃµË´Ï´Ù.
+        // êµ¬ë… ì „ì— ì´ë¯¸ ì§€ë‚˜ê°„ ë³€ê²½(SetMaxHealth ë“±)ì„ ë†“ì¹˜ì§€ ì•Šë„ë¡ í˜„ì¬ê°’ì—ì„œ ì‹œì‘í•©ë‹ˆë‹¤.
+        // ì´ë²¤íŠ¸ê°€ ì±„ì›Œì£¼ê¸°ë¥¼ ê¸°ë‹¤ë¦¬ë©´ ì²« í”¼ê²©ì´ í†µì§¸ë¡œ ë¬´ì‹œë©ë‹ˆë‹¤.
         lastHealth = health.Current;
 
         health.OnHealthChanged += HandleHealthChanged;
@@ -39,11 +39,11 @@ public class HitReaction : MonoBehaviour
 
     private void HandleHealthChanged(int current, int max)
     {
-        // È¸º¹ÀÌ³ª ÃÖ´ë Ã¼·Â ¼³Á¤ ¶§µµ ÀÌ ÀÌº¥Æ®°¡ ¿À¹Ç·Î, ÁÙ¾îµç °æ¿ì¸¸ ¹İÀÀÇÕ´Ï´Ù.
+        // íšŒë³µì´ë‚˜ ìµœëŒ€ ì²´ë ¥ ì„¤ì • ë•Œë„ ì´ ì´ë²¤íŠ¸ê°€ ì˜¤ë¯€ë¡œ, ì¤„ì–´ë“  ê²½ìš°ë§Œ ë°˜ì‘í•©ë‹ˆë‹¤.
         bool damaged = lastHealth >= 0 && current < lastHealth;
         lastHealth = current;
 
-        if (!damaged || current <= 0) return;   // Á×Àº ÇÁ·¹ÀÓÀº »ç¸Á Ã³¸®°¡ ¸Ã½À´Ï´Ù
+        if (!damaged || current <= 0) return;   // ì£½ì€ í”„ë ˆì„ì€ ì‚¬ë§ ì²˜ë¦¬ê°€ ë§¡ìŠµë‹ˆë‹¤
 
         stunUntil = Time.time + stunDuration;
 

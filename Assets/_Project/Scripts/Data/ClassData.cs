@@ -1,40 +1,40 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// Á÷¾÷ ÇÏ³ªÀÇ ¼³Á¤°ª. ¾À°ú ¹«°üÇÏ°Ô Á¸ÀçÇÏ´Â µ¥ÀÌÅÍÀÌ¹Ç·Î ScriptableObject·Î µÓ´Ï´Ù.
-/// id´Â ¼¼ÀÌºê ÆÄÀÏÀÌ ¿¡¼ÂÀ» ´Ù½Ã Ã£±â À§ÇÑ ¿­¼èÀÔ´Ï´Ù  ÆÄÀÏ¸íÀ» ¹Ù²ãµµ ÀúÀåÀÌ ±úÁöÁö ¾Êµµ·Ï ºĞ¸®Çß½À´Ï´Ù.
+/// ì§ì—… í•˜ë‚˜ì˜ ì„¤ì •ê°’. ì”¬ê³¼ ë¬´ê´€í•˜ê²Œ ì¡´ì¬í•˜ëŠ” ë°ì´í„°ì´ë¯€ë¡œ ScriptableObjectë¡œ ë‘¡ë‹ˆë‹¤.
+/// idëŠ” ì„¸ì´ë¸Œ íŒŒì¼ì´ ì—ì…‹ì„ ë‹¤ì‹œ ì°¾ê¸° ìœ„í•œ ì—´ì‡ ì…ë‹ˆë‹¤  íŒŒì¼ëª…ì„ ë°”ê¿”ë„ ì €ì¥ì´ ê¹¨ì§€ì§€ ì•Šë„ë¡ ë¶„ë¦¬í–ˆìŠµë‹ˆë‹¤.
 /// </summary>
 [CreateAssetMenu(fileName = "Class_", menuName = "Game/Class Data")]
 public class ClassData : ScriptableObject
 {
-    [Header("½Äº°")]
-    [Tooltip("¼¼ÀÌºê ÆÄÀÏ¿¡ ±â·ÏµÇ´Â °ª. ÇÑ ¹ø Á¤ÇÏ¸é ¹Ù²ÙÁö ¾Ê½À´Ï´Ù.")]
+    [Header("ì‹ë³„")]
+    [Tooltip("ì„¸ì´ë¸Œ íŒŒì¼ì— ê¸°ë¡ë˜ëŠ” ê°’. í•œ ë²ˆ ì •í•˜ë©´ ë°”ê¾¸ì§€ ì•ŠìŠµë‹ˆë‹¤.")]
     public string id;
 
-    [Header("Ç¥½Ã")]
+    [Header("í‘œì‹œ")]
     public string displayName;
     [TextArea(2, 4)]
     public string description;
     public Sprite icon;
 
-    [Header("¿ÜÇü")]
+    [Header("ì™¸í˜•")]
     public GameObject modelPrefab;
 
-    [Header("´É·ÂÄ¡")]
+    [Header("ëŠ¥ë ¥ì¹˜")]
     public int maxHealth;
     public int attackDamage;
     public float moveSpeed;
-    [Tooltip("¹Ş´Â ÇÇÇØ¿¡¼­ Â÷°¨µË´Ï´Ù.")]
+    [Tooltip("ë°›ëŠ” í”¼í•´ì—ì„œ ì°¨ê°ë©ë‹ˆë‹¤.")]
     public int defense;
 
-    [Header("Àåºñ")]
-    [Tooltip("¿À¸¥¼Õ(handslot.r)¿¡ »ı¼ºÇÒ ¹«±â ÇÁ¸®ÆÕÀÔ´Ï´Ù.")]
+    [Header("ì¥ë¹„")]
+    [Tooltip("ì˜¤ë¥¸ì†(handslot.r)ì— ìƒì„±í•  ë¬´ê¸° í”„ë¦¬íŒ¹ì…ë‹ˆë‹¤.")]
     public GameObject weaponPrefab;
 
-    [Tooltip("¿Ş¼Õ(handslot.l)¿¡ »ı¼ºÇÒ ÇÁ¸®ÆÕÀÔ´Ï´Ù. ¾øÀ¸¸é ºñ¿öµÓ´Ï´Ù.")]
+    [Tooltip("ì™¼ì†(handslot.l)ì— ìƒì„±í•  í”„ë¦¬íŒ¹ì…ë‹ˆë‹¤. ì—†ìœ¼ë©´ ë¹„ì›Œë‘¡ë‹ˆë‹¤.")]
     public GameObject offhandPrefab;
 
-    [Tooltip("½ÃÀÛ ½Ã ÀÎº¥Åä¸®¿¡ Áö±ŞÇÒ ¾ÆÀÌÅÛÀÔ´Ï´Ù.")]
+    [Tooltip("ì‹œì‘ ì‹œ ì¸ë²¤í† ë¦¬ì— ì§€ê¸‰í•  ì•„ì´í…œì…ë‹ˆë‹¤.")]
     public ItemData starterItem;
 
     private void OnValidate()

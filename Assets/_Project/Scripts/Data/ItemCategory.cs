@@ -1,9 +1,9 @@
-/// <summary>ÀÎº¥Åä¸® ºĞ·ù ÅÇ¿¡ ¾²ÀÌ´Â ¾ÆÀÌÅÛ Á¾·ù.</summary>
+ï»¿/// <summary>ì¸ë²¤í† ë¦¬ ë¶„ë¥˜ íƒ­ì— ì“°ì´ëŠ” ì•„ì´í…œ ì¢…ë¥˜.</summary>
 public enum ItemCategory
 {
-    Weapon,      // ¹«±â
-    Costume,     // ÀÇ»ó
-    Consumable,  // ¼Ò¸ğÇ°
-    Material,    // Àç·á
-    Quest,       // Äù½ºÆ®
+    Weapon,      // ë¬´ê¸°
+    Costume,     // ì˜ìƒ
+    Consumable,  // ì†Œëª¨í’ˆ
+    Material,    // ì¬ë£Œ
+    Quest,       // í€˜ìŠ¤íŠ¸
 }

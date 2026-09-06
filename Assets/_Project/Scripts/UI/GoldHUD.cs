@@ -1,7 +1,7 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 
-/// <summary>È­¸é¿¡ ´Ã ¶° ÀÖ´Â °ñµå Ç¥½Ã. °ªÀ» ¼ÒÀ¯ÇÏÁö ¾Ê°í WalletÀ» ±¸µ¶¸¸ ÇÕ´Ï´Ù.</summary>
+/// <summary>í™”ë©´ì— ëŠ˜ ë–  ìˆëŠ” ê³¨ë“œ í‘œì‹œ. ê°’ì„ ì†Œìœ í•˜ì§€ ì•Šê³  Walletì„ êµ¬ë…ë§Œ í•©ë‹ˆë‹¤.</summary>
 public class GoldHUD : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI goldText;
@@ -11,12 +11,12 @@ public class GoldHUD : MonoBehaviour
     {
         if (progress == null)
         {
-            Debug.LogError($"{name}: PlayerProgress°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError($"{name}: PlayerProgressê°€ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
 
         progress.Wallet.OnGoldChanged += Refresh;
-        Refresh(progress.Wallet.Gold);   // ÇöÀç °ªÀ¸·Î 1È¸ °»½Å
+        Refresh(progress.Wallet.Gold);   // í˜„ì¬ ê°’ìœ¼ë¡œ 1íšŒ ê°±ì‹ 
     }
 
     private void OnDisable()

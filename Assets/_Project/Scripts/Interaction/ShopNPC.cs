@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 
 [RequireComponent(typeof(Shop))]
 public class ShopNpc : Interactable
 {
     [SerializeField] private ShopUI shopUI;
-    [SerializeField] private string shopName = "ÀâÈ­Á¡";
+    [SerializeField] private string shopName = "ì¡í™”ì ";
 
     
     [SerializeField] private NpcData npcData;
@@ -26,7 +26,7 @@ public class ShopNpc : Interactable
             return;
         }
 
-        // NpcData°¡ ¾ø´Â »óÀÎµµ ÀÖÀ» ¼ö ÀÖÀ¸¹Ç·Î ±â·ÏÀº ÀÖÀ» ¶§¸¸ ³²±é´Ï´Ù.
+        // NpcDataê°€ ì—†ëŠ” ìƒì¸ë„ ìˆì„ ìˆ˜ ìˆìœ¼ë¯€ë¡œ ê¸°ë¡ì€ ìˆì„ ë•Œë§Œ ë‚¨ê¹ë‹ˆë‹¤.
         if (npcData != null) progress.Flags.MarkTalked(npcData);
 
         shopUI.Open(shop, progress, shopName);

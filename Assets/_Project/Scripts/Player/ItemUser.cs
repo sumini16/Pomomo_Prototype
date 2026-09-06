@@ -1,7 +1,7 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
-/// <summary>»ç¿ë ½ÃµµÀÇ °á°ú. ½ÇÆÐ »çÀ¯°¡ ¿©·¯ °¡Áö¶ó bool·Î´Â ºÎÁ·ÇÕ´Ï´Ù.</summary>
+/// <summary>ì‚¬ìš© ì‹œë„ì˜ ê²°ê³¼. ì‹¤íŒ¨ ì‚¬ìœ ê°€ ì—¬ëŸ¬ ê°€ì§€ë¼ boolë¡œëŠ” ë¶€ì¡±í•©ë‹ˆë‹¤.</summary>
 public enum UseResult
 {
     Success,
@@ -11,10 +11,10 @@ public enum UseResult
 }
 
 /// <summary>
-/// ¾ÆÀÌÅÛÀ» »ç¿ëÇØ È¿°ú¸¦ Àû¿ëÇÕ´Ï´Ù.
+/// ì•„ì´í…œì„ ì‚¬ìš©í•´ íš¨ê³¼ë¥¼ ì ìš©í•©ë‹ˆë‹¤.
 ///
-/// ÆÇÁ¤Àº ¿©±â¼­ ÇÏ°í, °á°ú¸¦ ¹®±¸·Î ¹Ù²Ù´Â ÀÏÀº UI°¡ ¸Ã½À´Ï´Ù(Shop°ú °°Àº ±¸ºÐ).
-/// È¸º¹·®Àº ItemData°¡ µé°í ÀÖÀ¸¹Ç·Î, »õ ¼Ò¸ðÇ°À» Ãß°¡ÇÒ ¶§ ÄÚµå´Â ¹Ù²îÁö ¾Ê½À´Ï´Ù.
+/// íŒì •ì€ ì—¬ê¸°ì„œ í•˜ê³ , ê²°ê³¼ë¥¼ ë¬¸êµ¬ë¡œ ë°”ê¾¸ëŠ” ì¼ì€ UIê°€ ë§¡ìŠµë‹ˆë‹¤(Shopê³¼ ê°™ì€ êµ¬ë¶„).
+/// íšŒë³µëŸ‰ì€ ItemDataê°€ ë“¤ê³  ìžˆìœ¼ë¯€ë¡œ, ìƒˆ ì†Œëª¨í’ˆì„ ì¶”ê°€í•  ë•Œ ì½”ë“œëŠ” ë°”ë€Œì§€ ì•ŠìŠµë‹ˆë‹¤.
 /// </summary>
 [RequireComponent(typeof(PlayerInventory))]
 [RequireComponent(typeof(Health))]
@@ -23,7 +23,7 @@ public class ItemUser : MonoBehaviour
     private PlayerInventory inventory;
     private Health health;
 
-    /// <summary>»ç¿ë °á°ú¸¦ ¾Ë¸³´Ï´Ù. UI°¡ ±¸µ¶ÇØ ¹®±¸¸¦ ¶ç¿ó´Ï´Ù.</summary>
+    /// <summary>ì‚¬ìš© ê²°ê³¼ë¥¼ ì•Œë¦½ë‹ˆë‹¤. UIê°€ êµ¬ë…í•´ ë¬¸êµ¬ë¥¼ ë„ì›ë‹ˆë‹¤.</summary>
     public event Action<ItemData, UseResult> OnItemUsed;
 
     private void Awake()
@@ -38,8 +38,8 @@ public class ItemUser : MonoBehaviour
 
         if (result == UseResult.Success)
         {
-            // ¼Ò¸ð°¡ ¸ÕÀúÀÔ´Ï´Ù. È¸º¹ÀÌ ÀÎº¥Åä¸® º¯°æ ÀÌº¥Æ®¸¦ Å¸°í UI¸¦ ´Ù½Ã ±×¸®´Âµ¥,
-            // ±× ½ÃÁ¡¿¡ ¾ÆÁ÷ ¾ÆÀÌÅÛÀÌ ³²¾Æ ÀÖÀ¸¸é ÇÑ ÇÁ·¹ÀÓ µ¿¾È °³¼ö°¡ ¾î±ß³ª º¸ÀÔ´Ï´Ù.
+            // ì†Œëª¨ê°€ ë¨¼ì €ìž…ë‹ˆë‹¤. íšŒë³µì´ ì¸ë²¤í† ë¦¬ ë³€ê²½ ì´ë²¤íŠ¸ë¥¼ íƒ€ê³  UIë¥¼ ë‹¤ì‹œ ê·¸ë¦¬ëŠ”ë°,
+            // ê·¸ ì‹œì ì— ì•„ì§ ì•„ì´í…œì´ ë‚¨ì•„ ìžˆìœ¼ë©´ í•œ í”„ë ˆìž„ ë™ì•ˆ ê°œìˆ˜ê°€ ì–´ê¸‹ë‚˜ ë³´ìž…ë‹ˆë‹¤.
             inventory.Remove(item, 1);
             health.Heal(item.healAmount);
         }

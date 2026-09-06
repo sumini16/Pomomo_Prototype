@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 public class Wallet : MonoBehaviour
@@ -21,14 +21,14 @@ public class Wallet : MonoBehaviour
     {
         if (amount <= 0)
         {
-            Debug.LogWarning($"[Wallet] Áö±Ş ½ÇÆĞ: amount={amount}");
+            Debug.LogWarning($"[Wallet] ì§€ê¸‰ ì‹¤íŒ¨: amount={amount}");
             return;
         }
 
         int before = currentGold;
         currentGold += amount;
 
-        Debug.Log($"[Wallet] °ñµå Áö±Ş: {before} ¡æ {currentGold} (+{amount})");
+        Debug.Log($"[Wallet] ê³¨ë“œ ì§€ê¸‰: {before} â†’ {currentGold} (+{amount})");
         OnGoldChanged?.Invoke(currentGold);
     }
 
@@ -43,8 +43,8 @@ public class Wallet : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀúÀåµÈ °ªÀ¸·Î µÇµ¹¸³´Ï´Ù. Add/TrySpend¿Í ´Ş¸® °ËÁõ ¾øÀÌ ±×´ë·Î µ¤¾î¾¹´Ï´Ù.
-    /// º¹¿øÀº °Å·¡°¡ ¾Æ´Ï¶ó °ú°Å »óÅÂÀÇ ÀçÇöÀÌ¹Ç·Î °°Àº ±ÔÄ¢À» Àû¿ëÇÏÁö ¾Ê½À´Ï´Ù.
+    /// ì €ì¥ëœ ê°’ìœ¼ë¡œ ë˜ëŒë¦½ë‹ˆë‹¤. Add/TrySpendì™€ ë‹¬ë¦¬ ê²€ì¦ ì—†ì´ ê·¸ëŒ€ë¡œ ë®ì–´ì”ë‹ˆë‹¤.
+    /// ë³µì›ì€ ê±°ë˜ê°€ ì•„ë‹ˆë¼ ê³¼ê±° ìƒíƒœì˜ ì¬í˜„ì´ë¯€ë¡œ ê°™ì€ ê·œì¹™ì„ ì ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
     /// </summary>
     public void Restore(int gold)
     {

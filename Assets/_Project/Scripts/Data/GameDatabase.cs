@@ -1,11 +1,11 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 /// <summary>
-/// ¼¼ÀÌºê ÆÄÀÏ¿¡ ±â·ÏµÈ id¸¦ ´Ù½Ã ¿¡¼ÂÀ¸·Î µÇµ¹¸®±â À§ÇÑ Á¶È¸Ç¥ÀÔ´Ï´Ù.
+/// ì„¸ì´ë¸Œ íŒŒì¼ì— ê¸°ë¡ëœ idë¥¼ ë‹¤ì‹œ ì—ì…‹ìœ¼ë¡œ ë˜ëŒë¦¬ê¸° ìœ„í•œ ì¡°íšŒí‘œì…ë‹ˆë‹¤.
 ///
-/// JsonUtility´Â ScriptableObject ÂüÁ¶¸¦ ÀúÀåÇÏÁö ¸øÇÏ¹Ç·Î ÆÄÀÏ¿¡´Â ¹®ÀÚ¿­ id¸¸ ³²½À´Ï´Ù.
-/// º¹¿ø ½ÃÁ¡¿¡ ±× ¹®ÀÚ¿­À» ½ÇÁ¦ ¿¡¼ÂÀ¸·Î ¹Ù²ãÁÙ °÷ÀÌ ÇÑ ±ºµ¥´Â ÀÖ¾î¾ß ÇØ¼­ ¸¸µé¾ú½À´Ï´Ù.
+/// JsonUtilityëŠ” ScriptableObject ì°¸ì¡°ë¥¼ ì €ì¥í•˜ì§€ ëª»í•˜ë¯€ë¡œ íŒŒì¼ì—ëŠ” ë¬¸ìì—´ idë§Œ ë‚¨ìŠµë‹ˆë‹¤.
+/// ë³µì› ì‹œì ì— ê·¸ ë¬¸ìì—´ì„ ì‹¤ì œ ì—ì…‹ìœ¼ë¡œ ë°”ê¿”ì¤„ ê³³ì´ í•œ êµ°ë°ëŠ” ìˆì–´ì•¼ í•´ì„œ ë§Œë“¤ì—ˆìŠµë‹ˆë‹¤.
 /// </summary>
 [CreateAssetMenu(fileName = "GameDatabase", menuName = "Game/Game Database")]
 public class GameDatabase : ScriptableObject
@@ -41,8 +41,8 @@ public class GameDatabase : ScriptableObject
     }
 
     /// <summary>
-    /// ºó id¿Í Áßº¹ id´Â º¹¿ø ½Ã ¿¹¿Ü ¾øÀÌ Á¶¿ëÈ÷ Àß¸øµÈ °á°ú¸¦ ³À´Ï´Ù.
-    /// ½ÇÇà Áß¿¡ ¾Ë¾ÆÃ¤±â ¾î·Á¿ì¹Ç·Î ¿¡µğÅÍ¿¡¼­ ¹Ì¸® °É·¯³À´Ï´Ù.
+    /// ë¹ˆ idì™€ ì¤‘ë³µ idëŠ” ë³µì› ì‹œ ì˜ˆì™¸ ì—†ì´ ì¡°ìš©íˆ ì˜ëª»ëœ ê²°ê³¼ë¥¼ ëƒ…ë‹ˆë‹¤.
+    /// ì‹¤í–‰ ì¤‘ì— ì•Œì•„ì±„ê¸° ì–´ë ¤ìš°ë¯€ë¡œ ì—ë””í„°ì—ì„œ ë¯¸ë¦¬ ê±¸ëŸ¬ëƒ…ë‹ˆë‹¤.
     /// </summary>
     private void Validate<T>(T[] source, Func<T, string> idOf, string label) where T : ScriptableObject
     {
@@ -56,7 +56,7 @@ public class GameDatabase : ScriptableObject
 
             if (string.IsNullOrWhiteSpace(id))
             {
-                Debug.LogError($"[GameDatabase] {label}: '{source[i].name}'ÀÇ id°¡ ºñ¾î ÀÖ½À´Ï´Ù.", source[i]);
+                Debug.LogError($"[GameDatabase] {label}: '{source[i].name}'ì˜ idê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.", source[i]);
                 continue;
             }
 
@@ -65,7 +65,7 @@ public class GameDatabase : ScriptableObject
                 if (source[j] == null) continue;
 
                 if (idOf(source[j]) == id)
-                    Debug.LogError($"[GameDatabase] {label}: id Áßº¹ '{id}'  {source[i].name}, {source[j].name}", this);
+                    Debug.LogError($"[GameDatabase] {label}: id ì¤‘ë³µ '{id}'  {source[i].name}, {source[j].name}", this);
             }
         }
     }

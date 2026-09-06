@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// Á÷¾÷ ¸ñ·Ï. ¼±ÅÃ È­¸éÀÌ ¼øÈ¸ÇÏ°í, ¼¼ÀÌºê º¹¿øÀÌ id·Î Á¶È¸ÇÕ´Ï´Ù.
-/// ¾À¸¶´Ù Á÷¾÷ ¸ñ·ÏÀ» µû·Î µé°í ÀÖÀ¸¸é ¾î±ß³ª¹Ç·Î ¿¡¼Â ÇÏ³ª·Î ¸ğÀ¾´Ï´Ù.
+/// ì§ì—… ëª©ë¡. ì„ íƒ í™”ë©´ì´ ìˆœíšŒí•˜ê³ , ì„¸ì´ë¸Œ ë³µì›ì´ idë¡œ ì¡°íšŒí•©ë‹ˆë‹¤.
+/// ì”¬ë§ˆë‹¤ ì§ì—… ëª©ë¡ì„ ë”°ë¡œ ë“¤ê³  ìˆìœ¼ë©´ ì–´ê¸‹ë‚˜ë¯€ë¡œ ì—ì…‹ í•˜ë‚˜ë¡œ ëª¨ìë‹ˆë‹¤.
 /// </summary>
 [CreateAssetMenu(fileName = "ClassDatabase", menuName = "Game/Class Database")]
 public class ClassDatabase : ScriptableObject
@@ -30,21 +30,21 @@ public class ClassDatabase : ScriptableObject
         {
             if (classes[i] == null) continue;
 
-            // ºó id´Â ¼¼ÀÌºê º¹¿ø ½Ã ¾Æ¹«°Íµµ ¸ø Ã£½À´Ï´Ù.
+            // ë¹ˆ idëŠ” ì„¸ì´ë¸Œ ë³µì› ì‹œ ì•„ë¬´ê²ƒë„ ëª» ì°¾ìŠµë‹ˆë‹¤.
             if (string.IsNullOrWhiteSpace(classes[i].id))
             {
-                Debug.LogError($"[ClassDatabase] '{classes[i].name}'ÀÇ id°¡ ºñ¾î ÀÖ½À´Ï´Ù.", classes[i]);
+                Debug.LogError($"[ClassDatabase] '{classes[i].name}'ì˜ idê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.", classes[i]);
                 continue;
             }
 
-            // Áßº¹ id´Â Á¶È¸ °á°ú°¡ ¼ø¼­¿¡ ÁÂ¿ìµÇ¾î Á¶¿ëÈ÷ Àß¸øµÈ Á÷¾÷ÀÌ º¹¿øµË´Ï´Ù.
+            // ì¤‘ë³µ idëŠ” ì¡°íšŒ ê²°ê³¼ê°€ ìˆœì„œì— ì¢Œìš°ë˜ì–´ ì¡°ìš©íˆ ì˜ëª»ëœ ì§ì—…ì´ ë³µì›ë©ë‹ˆë‹¤.
             for (int j = i + 1; j < classes.Length; j++)
             {
                 if (classes[j] == null) continue;
                 if (string.IsNullOrWhiteSpace(classes[j].id)) continue;
 
                 if (classes[i].id == classes[j].id)
-                    Debug.LogError($"[ClassDatabase] id Áßº¹: '{classes[i].id}'  {classes[i].name}, {classes[j].name}", this);
+                    Debug.LogError($"[ClassDatabase] id ì¤‘ë³µ: '{classes[i].id}'  {classes[i].name}, {classes[j].name}", this);
             }
         }
     }

@@ -1,29 +1,29 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// ¼±ÅÃµÈ Á÷¾÷ÀÇ ¼öÄ¡¿Í ±âº» Àåºñ¸¦ ÇÃ·¹ÀÌ¾î¿¡ Àû¿ëÇÕ´Ï´Ù.
+/// ì„ íƒëœ ì§ì—…ì˜ ìˆ˜ì¹˜ì™€ ê¸°ë³¸ ì¥ë¹„ë¥¼ í”Œë ˆì´ì–´ì— ì ìš©í•©ë‹ˆë‹¤.
 ///
-/// °¢ ÄÄÆ÷³ÍÆ®°¡ GameManager¸¦ Á÷Á¢ º¸°Ô ÇÏ¸é Á÷¾÷À» ¾Æ´Â °÷ÀÌ ³× ±ºµ¥·Î ´Ã¾î³³´Ï´Ù.
-/// ÁÖÀÔÇÏ´Â Ã¥ÀÓÀ» ÀÌ ÇÑ °÷¿¡ ¸ğ¾Æ, ³ª¸ÓÁö´Â °ªÀ» ¹Ş´Â ¿ªÇÒ¸¸ ÇÏ°Ô Çß½À´Ï´Ù.
+/// ê° ì»´í¬ë„ŒíŠ¸ê°€ GameManagerë¥¼ ì§ì ‘ ë³´ê²Œ í•˜ë©´ ì§ì—…ì„ ì•„ëŠ” ê³³ì´ ë„¤ êµ°ë°ë¡œ ëŠ˜ì–´ë‚©ë‹ˆë‹¤.
+/// ì£¼ì…í•˜ëŠ” ì±…ì„ì„ ì´ í•œ ê³³ì— ëª¨ì•„, ë‚˜ë¨¸ì§€ëŠ” ê°’ì„ ë°›ëŠ” ì—­í• ë§Œ í•˜ê²Œ í–ˆìŠµë‹ˆë‹¤.
 ///
-/// Àåºñ´Â ClassData°¡ ÇÁ¸®ÆÕÀ¸·Î µé°í ÀÖ½À´Ï´Ù.
-/// ¾À¿¡ ¹Ì¸® ¹èÄ¡ÇØ ÄÑ°í ²ô´Â ¹æ¹ıµµ °ËÅäÇßÁö¸¸, ±×·¯¸é Á÷¾÷À» Ãß°¡ÇÒ ¶§¸¶´Ù
-/// ¿¡¼Â°ú ¾ÀÀ» ÇÔ²² °íÃÄ¾ß ÇÕ´Ï´Ù. Á÷¾÷ Ãß°¡°¡ ¿¡¼Â ÇÏ³ª·Î ³¡³ªµµ·Ï »ı¼º ¹æ½ÄÀ» ÅÃÇß½À´Ï´Ù.
+/// ì¥ë¹„ëŠ” ClassDataê°€ í”„ë¦¬íŒ¹ìœ¼ë¡œ ë“¤ê³  ìˆìŠµë‹ˆë‹¤.
+/// ì”¬ì— ë¯¸ë¦¬ ë°°ì¹˜í•´ ì¼œê³  ë„ëŠ” ë°©ë²•ë„ ê²€í† í–ˆì§€ë§Œ, ê·¸ëŸ¬ë©´ ì§ì—…ì„ ì¶”ê°€í•  ë•Œë§ˆë‹¤
+/// ì—ì…‹ê³¼ ì”¬ì„ í•¨ê»˜ ê³ ì³ì•¼ í•©ë‹ˆë‹¤. ì§ì—… ì¶”ê°€ê°€ ì—ì…‹ í•˜ë‚˜ë¡œ ëë‚˜ë„ë¡ ìƒì„± ë°©ì‹ì„ íƒí–ˆìŠµë‹ˆë‹¤.
 /// </summary>
 [DefaultExecutionOrder(-50)]
 public class PlayerClassApplier : MonoBehaviour
 {
-    [Tooltip("¼±ÅÃ ¾ÀÀ» °ÅÄ¡Áö ¾Ê°í ÀÌ ¾ÀÀ» ¹Ù·Î ½ÇÇàÇÒ ¶§ »ç¿ëÇÒ Á÷¾÷ÀÔ´Ï´Ù.")]
+    [Tooltip("ì„ íƒ ì”¬ì„ ê±°ì¹˜ì§€ ì•Šê³  ì´ ì”¬ì„ ë°”ë¡œ ì‹¤í–‰í•  ë•Œ ì‚¬ìš©í•  ì§ì—…ì…ë‹ˆë‹¤.")]
     [SerializeField] private ClassData fallbackClass;
 
-    [Header("Àû¿ë ´ë»ó")]
+    [Header("ì ìš© ëŒ€ìƒ")]
     [SerializeField] private Health health;
     [SerializeField] private PlayerCombat combat;
     [SerializeField] private PlayerController controller;
     [SerializeField] private PlayerInventory inventory;
 
-    [Header("ÀåÂø ÁöÁ¡")]
-    [Tooltip("¸ğµ¨ÀÇ handslot.r º». Hierarchy °Ë»öÃ¢¿¡ handslotÀ» Ä¡¸é Ã£À» ¼ö ÀÖ½À´Ï´Ù.")]
+    [Header("ì¥ì°© ì§€ì ")]
+    [Tooltip("ëª¨ë¸ì˜ handslot.r ë³¸. Hierarchy ê²€ìƒ‰ì°½ì— handslotì„ ì¹˜ë©´ ì°¾ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.")]
     [SerializeField] private Transform rightHandSlot;
     [SerializeField] private Transform leftHandSlot;
 
@@ -41,7 +41,7 @@ public class PlayerClassApplier : MonoBehaviour
 
         if (data == null)
         {
-            Debug.LogWarning("[PlayerClassApplier] Àû¿ëÇÒ Á÷¾÷ÀÌ ¾ø½À´Ï´Ù. ±âº»°ªÀ¸·Î ÁøÇàÇÕ´Ï´Ù.", this);
+            Debug.LogWarning("[PlayerClassApplier] ì ìš©í•  ì§ì—…ì´ ì—†ìŠµë‹ˆë‹¤. ê¸°ë³¸ê°’ìœ¼ë¡œ ì§„í–‰í•©ë‹ˆë‹¤.", this);
             return;
         }
 
@@ -68,7 +68,7 @@ public class PlayerClassApplier : MonoBehaviour
             inventory.Add(data.starterItem, 1);
     }
 
-    /// <summary>ÀåÂø ½½·ÔÀ» ºñ¿ì°í Àåºñ¸¦ »ı¼ºÇÕ´Ï´Ù. prefabÀÌ nullÀÌ¸é ºñ¿ì±â¸¸ ÇÕ´Ï´Ù.</summary>
+    /// <summary>ì¥ì°© ìŠ¬ë¡¯ì„ ë¹„ìš°ê³  ì¥ë¹„ë¥¼ ìƒì„±í•©ë‹ˆë‹¤. prefabì´ nullì´ë©´ ë¹„ìš°ê¸°ë§Œ í•©ë‹ˆë‹¤.</summary>
     private void Equip(GameObject prefab, Transform slot)
     {
         if (slot == null) return;
@@ -78,8 +78,8 @@ public class PlayerClassApplier : MonoBehaviour
 
         if (prefab == null) return;
 
-        // Instantiate(prefab, slot)Àº ÇÁ¸®ÆÕ¿¡ ÀúÀåµÈ ·ÎÄÃ ÁÂÇ¥¸¦ ±×´ë·Î ¾¹´Ï´Ù.
-        // ¼Õ¿¡ ¸ÂÃç Á¶Á¤ÇÑ À§Ä¡¡¤È¸ÀüÀÌ ÇÁ¸®ÆÕ¿¡ µé¾î ÀÖÀ¸¹Ç·Î ¿©±â¼­ ¸®¼ÂÇÏÁö ¾Ê½À´Ï´Ù.
+        // Instantiate(prefab, slot)ì€ í”„ë¦¬íŒ¹ì— ì €ì¥ëœ ë¡œì»¬ ì¢Œí‘œë¥¼ ê·¸ëŒ€ë¡œ ì”ë‹ˆë‹¤.
+        // ì†ì— ë§ì¶° ì¡°ì •í•œ ìœ„ì¹˜Â·íšŒì „ì´ í”„ë¦¬íŒ¹ì— ë“¤ì–´ ìˆìœ¼ë¯€ë¡œ ì—¬ê¸°ì„œ ë¦¬ì…‹í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
         Instantiate(prefab, slot);
     }
 }

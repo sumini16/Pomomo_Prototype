@@ -1,12 +1,12 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
-/// Á÷¾÷ ¸ñ·ÏÀ» Ä«µå·Î ÆîÄ¡°í, °í¸¥ Á÷¾÷À» GameManager¿¡ ³Ñ±ä µÚ °ÔÀÓ ¾ÀÀ» ¿±´Ï´Ù.
-/// Ä«µå¸¦ ¼ÕÀ¸·Î ¹èÄ¡ÇÏÁö ¾Ê°í ClassDatabase¸¦ ¼øÈ¸ÇØ ¸¸µé±â ¶§¹®¿¡,
-/// Á÷¾÷À» Ãß°¡ÇØµµ ÀÌ ¾ÀÀº ¼öÁ¤ÇÒ °ÍÀÌ ¾ø½À´Ï´Ù.
+/// ì§ì—… ëª©ë¡ì„ ì¹´ë“œë¡œ í¼ì¹˜ê³ , ê³ ë¥¸ ì§ì—…ì„ GameManagerì— ë„˜ê¸´ ë’¤ ê²Œì„ ì”¬ì„ ì—½ë‹ˆë‹¤.
+/// ì¹´ë“œë¥¼ ì†ìœ¼ë¡œ ë°°ì¹˜í•˜ì§€ ì•Šê³  ClassDatabaseë¥¼ ìˆœíšŒí•´ ë§Œë“¤ê¸° ë•Œë¬¸ì—,
+/// ì§ì—…ì„ ì¶”ê°€í•´ë„ ì´ ì”¬ì€ ìˆ˜ì •í•  ê²ƒì´ ì—†ìŠµë‹ˆë‹¤.
 /// </summary>
 public class ClassSelectUI : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class ClassSelectUI : MonoBehaviour
     [SerializeField] private Transform cardContainer;
     [SerializeField] private Button startButton;
 
-    [Tooltip("Build ¸ñ·Ï¿¡ µî·ÏµÈ ÀÌ¸§°ú Á¤È®È÷ °°¾Æ¾ß ÇÕ´Ï´Ù.")]
+    [Tooltip("Build ëª©ë¡ì— ë“±ë¡ëœ ì´ë¦„ê³¼ ì •í™•íˆ ê°™ì•„ì•¼ í•©ë‹ˆë‹¤.")]
     [SerializeField] private string gameSceneName = "SampleScene";
 
     private readonly List<ClassCardUI> cards = new List<ClassCardUI>();
@@ -25,7 +25,7 @@ public class ClassSelectUI : MonoBehaviour
     {
         if (database == null || cardPrefab == null || cardContainer == null)
         {
-            Debug.LogError("[ClassSelectUI] ÀÎ½ºÆåÅÍ ¿¬°áÀÌ ºñ¾î ÀÖ½À´Ï´Ù.", this);
+            Debug.LogError("[ClassSelectUI] ì¸ìŠ¤í™í„° ì—°ê²°ì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.", this);
             return;
         }
 
@@ -64,7 +64,7 @@ public class ClassSelectUI : MonoBehaviour
 
     private void UpdateStartButton()
     {
-        // ¾Æ¹«°Íµµ °í¸£Áö ¾ÊÀº Ã¤·Î ½ÃÀÛÇÏ´Â °ÍÀ» ¸·½À´Ï´Ù.
+        // ì•„ë¬´ê²ƒë„ ê³ ë¥´ì§€ ì•Šì€ ì±„ë¡œ ì‹œì‘í•˜ëŠ” ê²ƒì„ ë§‰ìŠµë‹ˆë‹¤.
         if (startButton != null) startButton.interactable = selected != null;
     }
 
@@ -75,7 +75,7 @@ public class ClassSelectUI : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.SelectClass(selected);
         else
-            Debug.LogWarning("[ClassSelectUI] GameManager°¡ ¾ø¾î ¼±ÅÃÀÌ Àü´ŞµÇÁö ¾Ê½À´Ï´Ù.", this);
+            Debug.LogWarning("[ClassSelectUI] GameManagerê°€ ì—†ì–´ ì„ íƒì´ ì „ë‹¬ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.", this);
 
         SceneManager.LoadScene(gameSceneName);
     }

@@ -1,11 +1,11 @@
-using System;
+ï»¿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Á÷¾÷ Ä«µå ÇÏ³ªÀÇ Ç¥½Ã¸¦ ´ã´çÇÕ´Ï´Ù.
-/// ¹«¾ùÀ» ÇÒÁö´Â Bind·Î ÁÖÀÔ¹ŞÀ¸¹Ç·Î, Ä«µå´Â ¼±ÅÃ ·ÎÁ÷À» ¾ËÁö ¸øÇÕ´Ï´Ù(ItemSlotUI¿Í °°Àº ¹æ½Ä).
+/// ì§ì—… ì¹´ë“œ í•˜ë‚˜ì˜ í‘œì‹œë¥¼ ë‹´ë‹¹í•©ë‹ˆë‹¤.
+/// ë¬´ì—‡ì„ í• ì§€ëŠ” Bindë¡œ ì£¼ì…ë°›ìœ¼ë¯€ë¡œ, ì¹´ë“œëŠ” ì„ íƒ ë¡œì§ì„ ì•Œì§€ ëª»í•©ë‹ˆë‹¤(ItemSlotUIì™€ ê°™ì€ ë°©ì‹).
 /// </summary>
 public class ClassCardUI : MonoBehaviour
 {
@@ -28,20 +28,20 @@ public class ClassCardUI : MonoBehaviour
         if (iconImage != null)
         {
             iconImage.sprite = data.icon;
-            iconImage.enabled = data.icon != null;   // ¾ÆÀÌÄÜÀÌ ¾øÀ¸¸é Èò »ç°¢ÇüÀÌ ³²Áö ¾Êµµ·Ï
+            iconImage.enabled = data.icon != null;   // ì•„ì´ì½˜ì´ ì—†ìœ¼ë©´ í° ì‚¬ê°í˜•ì´ ë‚¨ì§€ ì•Šë„ë¡
         }
 
         if (nameText != null) nameText.text = data.displayName;
         if (descriptionText != null) descriptionText.text = data.description;
 
-        // ¼öÄ¡´Â ClassData¿¡¼­ Á÷Á¢ ÀĞ½À´Ï´Ù.
-        // ¼ÕÀ¸·Î Àû¾îµÎ¸é ¹ë·±½º¸¦ ¹Ù²åÀ» ¶§ ¼³¸í¸¸ ¿¾ °ªÀ¸·Î ³²½À´Ï´Ù.
+        // ìˆ˜ì¹˜ëŠ” ClassDataì—ì„œ ì§ì ‘ ì½ìŠµë‹ˆë‹¤.
+        // ì†ìœ¼ë¡œ ì ì–´ë‘ë©´ ë°¸ëŸ°ìŠ¤ë¥¼ ë°”ê¿¨ì„ ë•Œ ì„¤ëª…ë§Œ ì˜› ê°’ìœ¼ë¡œ ë‚¨ìŠµë‹ˆë‹¤.
         if (statsText != null)
             statsText.text =
-                $"Ã¼·Â\t{data.maxHealth}\n" +
-                $"°ø°İ·Â\t{data.attackDamage}\n" +
-                $"ÀÌµ¿¼Óµµ\t{data.moveSpeed:0.0}\n" +
-                $"¹æ¾î\t{data.defense}";
+                $"ì²´ë ¥\t{data.maxHealth}\n" +
+                $"ê³µê²©ë ¥\t{data.attackDamage}\n" +
+                $"ì´ë™ì†ë„\t{data.moveSpeed:0.0}\n" +
+                $"ë°©ì–´\t{data.defense}";
 
         if (button != null)
         {
