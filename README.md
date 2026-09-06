@@ -542,7 +542,7 @@ public enum TradeResult { Success, NotEnoughGold, NoItem, NotTradable, Invalid }
 ### 2.20 세이브: Dictionary를 그대로 저장할 수 없다는 것
 
 저장할 상태가 일곱 군데에 흩어져 있었습니다.
-인벤토리, 퀘스트 로그, 처치 집계, 지갑, 대화 플래그, 주운 아이템 목록.
+인벤토리, 퀘스트 로그, 처치 집계, 지갑, 위치, 대화 플래그, 주운 아이템 목록.
 한 클래스가 이걸 전부 아는 형태는 피하고 싶었습니다.
 
 `SaveCoordinator`가 각 소유자에게서 값을 받아 `SaveData`로 옮기고,
