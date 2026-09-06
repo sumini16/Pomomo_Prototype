@@ -17,9 +17,22 @@ public class EnemyAI : MonoBehaviour
     [Tooltip("이 적의 종류. 체력·속도·사거리를 여기서 읽습니다.")]
     [SerializeField] private EnemyData enemyData;
 
+    [Tooltip("추적 대상을 찾을 때 사용하는 태그입니다.")]
+    [SerializeField] private string targetTag = "Player";
+
     [Header("Patrol (개체마다 다름)")]
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private float waypointTolerance = 0.3f;
+
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private string attackTrigger = "Attack";
+    [SerializeField] private string dieTrigger = "Die";
+
+    [Tooltip("사망 모션이 재생될 시간. 이후 오브젝트가 사라집니다.")]
+    [SerializeField] private float deathDelay = 1.5f;
+
+
 
     public EnemyData Data => enemyData;
 
@@ -54,14 +67,6 @@ public class EnemyAI : MonoBehaviour
     public AttackState Attack { get; private set; }
     public DeadState Dead { get; private set; }
 
-    [Header("Animation")]
-    [SerializeField] private Animator animator;
-    [SerializeField] private string attackTrigger = "Attack";
-    [SerializeField] private string dieTrigger = "Die";
-
-    [Tooltip("사망 모션이 재생될 시간. 이후 오브젝트가 사라집니다.")]
-    [SerializeField] private float deathDelay = 1.5f;
-
     public float DeathDelay => deathDelay;
 
 
@@ -81,11 +86,12 @@ public class EnemyAI : MonoBehaviour
         // Health.Awake보다 먼저 불려도 나중에 불려도 결과가 같게 만들어 두었습니다.
         Health.SetMaxHealth(enemyData.maxHealth);
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag(targetTag);
+
         if (player != null)
             Target = player.transform;
         else
-            Debug.LogError($"{name}: Player 태그를 가진 오브젝트를 찾지 못했습니다.");
+            Debug.LogError($"{name}: '{targetTag}' 태그를 가진 오브젝트를 찾지 못했습니다.");
 
         Machine = new StateMachine();
         Patrol = new PatrolState(this);
