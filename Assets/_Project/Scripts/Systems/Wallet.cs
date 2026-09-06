@@ -24,8 +24,6 @@ public class Wallet : MonoBehaviour
             
             return;
         }
-
-        int before = currentGold;
         currentGold += amount;
         OnGoldChanged?.Invoke(currentGold);
     }

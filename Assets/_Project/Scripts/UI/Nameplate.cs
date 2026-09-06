@@ -22,9 +22,7 @@ public class Nameplate : MonoBehaviour
         if (nameText == null) nameText = GetComponentInChildren<TMP_Text>(true);
         if (fillImage == null) ResolveFillImage();
 
-        if (targetHealth == null)
-
-            if (fillImage == null) ;
+       
            
     }
 

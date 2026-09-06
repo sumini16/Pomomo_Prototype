@@ -13,6 +13,6 @@ public class IdleState : State
         if (ai.DistanceToTarget() > ai.FollowDistance)
             ai.Machine.ChangeState(ai.Follow);
 
-        //Debug.Log($"Idle pos={ai.transform.position} dist={ai.DistanceToTarget():F2}");
+        
     }
 }

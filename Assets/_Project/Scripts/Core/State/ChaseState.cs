@@ -10,7 +10,7 @@ public class ChaseState : State
 
     public override void Tick()
     {
-        //Debug.Log($"Chase dist={ai.DistanceToTarget():F2} (attackRange={ai.AttackRange})");
+        
         float distance = ai.DistanceToTarget();
 
         // 너무 멀어지면 포기하고 순찰로 복귀

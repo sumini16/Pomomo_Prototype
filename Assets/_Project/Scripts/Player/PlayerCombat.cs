@@ -63,7 +63,7 @@ public class PlayerCombat : MonoBehaviour
 
       
 
-        int hitCount = 0;
+      
 
         for (int i = 0; i < count; i++)
         {
@@ -81,7 +81,7 @@ public class PlayerCombat : MonoBehaviour
             if (!hasHealth) continue;
 
             targetHealth.TakeDamage(attackDamage);
-            hitCount++;
+           
         }
 
         
