@@ -10,7 +10,7 @@
 
 **개발 기간** 2026.08.25 ~ 2026.09.06 (13일)
 **환경** Unity 6 (6000.5.9f1) · URP 17.5 · Input System 1.20 · Cinemachine 3.1
-**플레이 영상** _(링크 추가 예정)_
+**플레이 영상** https://www.youtube.com/watch?v=39XX1OEO-W4
 
 ---
 
