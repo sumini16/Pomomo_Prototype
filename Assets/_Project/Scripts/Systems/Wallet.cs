@@ -21,14 +21,12 @@ public class Wallet : MonoBehaviour
     {
         if (amount <= 0)
         {
-            Debug.LogWarning($"[Wallet] 지급 실패: amount={amount}");
+            
             return;
         }
 
         int before = currentGold;
         currentGold += amount;
-
-        Debug.Log($"[Wallet] 골드 지급: {before} → {currentGold} (+{amount})");
         OnGoldChanged?.Invoke(currentGold);
     }
 

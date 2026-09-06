@@ -78,6 +78,7 @@ public class SaveCoordinator : MonoBehaviour
 
         if (Keyboard.current.f5Key.wasPressedThisFrame) Save();
         if (Keyboard.current.f9Key.wasPressedThisFrame) Load();
+        if (Keyboard.current.f12Key.wasPressedThisFrame) SaveSystem.Delete();
     }
 
     // ────────────────────────────── 저장

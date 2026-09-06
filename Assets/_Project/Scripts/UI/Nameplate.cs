@@ -13,8 +13,6 @@ public class Nameplate : MonoBehaviour
     [Header("Display")]
     [SerializeField] private string displayName;    // 비워두면 EnemyAI/Interactable에서 가져옴
 
-    [Header("Debug")]
-    [SerializeField] private bool logUpdates;
 
     private Transform cameraTransform;
 
@@ -25,9 +23,9 @@ public class Nameplate : MonoBehaviour
         if (fillImage == null) ResolveFillImage();
 
         if (targetHealth == null)
-            Debug.LogError($"[Nameplate] {name}: 부모에서 Health를 찾지 못했습니다.", this);
-        if (fillImage == null)
-            Debug.LogError($"[Nameplate] {name}: Fill Image가 비어 있습니다. HealthBarRoot/Fill 경로를 확인하세요.", this);
+
+            if (fillImage == null) ;
+           
     }
 
     private void ResolveFillImage()
@@ -55,8 +53,7 @@ public class Nameplate : MonoBehaviour
     {
         float ratio = max <= 0 ? 0f : Mathf.Clamp01((float)current / max);
 
-        if (logUpdates)
-            Debug.Log($"[Nameplate] {targetHealth.name} → {current}/{max} = {ratio:0.00} / fillImage={(fillImage == null ? "NULL" : fillImage.name)}", this);
+        
 
         if (fillImage != null) fillImage.fillAmount = ratio;
     }

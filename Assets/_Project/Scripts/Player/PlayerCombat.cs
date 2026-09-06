@@ -84,7 +84,7 @@ public class PlayerCombat : MonoBehaviour
             hitCount++;
         }
 
-        Debug.Log($"공격  {hitCount}체 명중");
+        
     }
     private void OnDrawGizmosSelected()
     {

@@ -85,14 +85,11 @@ public class QuestGiver : Interactable
 
                     log.SetState(quest, QuestState.Completed);
 
-                    Debug.Log(
-                        $"[QuestReward] 퀘스트 완료: {quest.title} | " +
-                        $"설정 보상: {quest.rewardGold} | " +
-                        $"지급 전 골드: {progress.Wallet.Gold}");
+                
 
                     progress.Wallet.Add(quest.rewardGold);
 
-                    Debug.Log($"[QuestReward] 지급 후 골드: {progress.Wallet.Gold}");
+                   
 
                     QuestEvents.Completed(quest);
                     DialogueEvents.Request(DisplayName, quest.completeText);

@@ -38,10 +38,10 @@ public class ClassCardUI : MonoBehaviour
         // 손으로 적어두면 밸런스를 바꿨을 때 설명만 옛 값으로 남습니다.
         if (statsText != null)
             statsText.text =
-                $"체력\t{data.maxHealth}\n" +
-                $"공격력\t{data.attackDamage}\n" +
-                $"이동속도\t{data.moveSpeed:0.0}\n" +
-                $"방어\t{data.defense}";
+                $"체력<pos=62%>{data.maxHealth}\n" +
+                $"공격력<pos=62%>{data.attackDamage}\n" +
+                $"이동속도<pos=62%>{data.moveSpeed:0.0}\n" +
+                $"방어<pos=62%>{data.defense}";
 
         if (button != null)
         {
