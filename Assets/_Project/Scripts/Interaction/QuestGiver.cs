@@ -44,7 +44,7 @@ public class QuestGiver : Interactable
         }
 
 
-        progress.Flags.MarkTalked(npcData);
+        
 
         QuestData quest = PickCurrentQuest(log);
 
@@ -61,6 +61,10 @@ public class QuestGiver : Interactable
             DialogueEvents.Request(DisplayName, quest.lockedText);
             return;
         }
+
+        progress.Flags.MarkTalked(npcData);
+
+
         switch (log.GetState(quest))
         {
             case QuestState.NotStarted:
