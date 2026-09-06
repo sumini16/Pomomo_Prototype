@@ -11,14 +11,16 @@ public class PlayerCombat : MonoBehaviour
 
     [Tooltip("이 값보다 정면성이 낮은 대상은 맞지 않습니다.")]
     [SerializeField, Range(-1f, 1f)] private float minFacingDot = 0.2f;
-    [SerializeField] private Animator animator;
-    private InputSystem_Actions input;
+        private InputSystem_Actions input;
     private float lastAttackTime;
 
     private readonly Collider[] hits = new Collider[16];
 
     [Tooltip("피격 경직 중 공격을 막습니다. 비워두면 같은 오브젝트에서 찾습니다.")]
     [SerializeField] private HitReaction hitReaction;
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private string attackTrigger = "Attack";
 
 
     private void Awake()
@@ -54,7 +56,7 @@ public class PlayerCombat : MonoBehaviour
     }
     private void PerformAttack()
     {
-        if (animator != null) animator.SetTrigger("Attack");
+        if (animator != null) animator.SetTrigger(attackTrigger);
 
         int count = Physics.OverlapSphereNonAlloc(
             transform.position, attackRange, hits, targetLayer);
